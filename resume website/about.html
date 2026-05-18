@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>About — Sujit Patel</title>
+<link rel="stylesheet" href="style.css">
+<style>
+  .about-hero { padding:8rem 2rem 2rem;text-align:center;position:relative; }
+  .page-title { font-size:clamp(3rem,7vw,6rem);font-weight:800;line-height:1; }
+  .page-title span { background:linear-gradient(135deg,var(--cyan),var(--violet2),var(--pink));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text; }
+
+  .about-grid { display:grid;grid-template-columns:1fr 1.5fr;gap:5rem;align-items:start;margin-top:4rem; }
+
+  /* Avatar */
+  .avatar-wrap { position:relative;display:flex;justify-content:center;align-items:center; }
+  .avatar-bg { width:320px;height:320px;position:relative;margin:0 auto; }
+  .avatar-circle {
+    width:260px;height:260px;border-radius:50%;
+    background:linear-gradient(135deg,var(--bg3),var(--bg2));
+    border:2px solid rgba(0,245,255,0.3);
+    display:flex;align-items:center;justify-content:center;
+    font-size:8rem;position:absolute;top:50%;left:50%;
+    transform:translate(-50%,-50%);
+    box-shadow:0 0 60px rgba(0,245,255,0.2),inset 0 0 40px rgba(0,245,255,0.05);
+    animation:avatarPulse 4s ease-in-out infinite;z-index:2;
+  }
+  @keyframes avatarPulse { 0%,100%{box-shadow:0 0 40px rgba(0,245,255,0.15)}50%{box-shadow:0 0 100px rgba(0,245,255,0.4),0 0 40px rgba(139,47,255,0.2)} }
+
+  .orbit { position:absolute;top:50%;left:50%;border-radius:50%;border:1px solid; }
+  .orbit1 { width:300px;height:300px;border-color:rgba(0,245,255,0.15);transform:translate(-50%,-50%);animation:spin 15s linear infinite; }
+  .orbit2 { width:350px;height:350px;border-color:rgba(139,47,255,0.1);transform:translate(-50%,-50%);animation:spinReverse 22s linear infinite; }
+  .orbit3 { width:400px;height:400px;border-color:rgba(255,45,120,0.08);transform:translate(-50%,-50%);animation:spin 30s linear infinite; }
+  .orbit-icon { position:absolute;top:-12px;left:50%;transform:translateX(-50%);font-size:1.4rem;filter:drop-shadow(0 0 8px rgba(0,245,255,0.8)); }
+
+  /* Info cards */
+  .info-card { background:rgba(8,13,28,0.8);border:1px solid var(--border);border-radius:10px;padding:1.2rem 1.5rem;margin-bottom:1rem;display:flex;align-items:center;gap:1.2rem;transition:border-color 0.3s,transform 0.3s; }
+  .info-card:hover { border-color:rgba(0,245,255,0.3);transform:translateX(6px); }
+  .info-icon { font-size:1.5rem;flex-shrink:0; }
+  .info-label { font-size:0.68rem;color:var(--muted);letter-spacing:2px;text-transform:uppercase;margin-bottom:0.2rem;font-family:'Space Mono',monospace; }
+  .info-value { font-size:0.95rem;color:var(--text); }
+
+  .about-text p { color:#8898c8;line-height:1.9;font-size:1rem;margin-bottom:1.2rem; }
+
+  .badges-wrap { display:flex;flex-wrap:wrap;gap:0.6rem;margin-top:1.5rem; }
+  .badge { font-family:'Space Mono',monospace;font-size:0.68rem;padding:0.35rem 0.9rem;border-radius:3px;letter-spacing:1px;transition:transform 0.2s,box-shadow 0.2s; }
+  .badge:hover { transform:translateY(-2px); }
+  .b-cyan { border:1px solid rgba(0,245,255,0.35);color:var(--cyan);background:rgba(0,245,255,0.07); }
+  .b-violet { border:1px solid rgba(182,109,255,0.35);color:var(--violet2);background:rgba(182,109,255,0.07); }
+  .b-pink { border:1px solid rgba(255,45,120,0.35);color:var(--pink);background:rgba(255,45,120,0.07); }
+  .b-green { border:1px solid rgba(0,255,170,0.35);color:var(--green);background:rgba(0,255,170,0.07); }
+  .b-orange { border:1px solid rgba(255,107,53,0.35);color:var(--orange);background:rgba(255,107,53,0.07); }
+
+  /* Soft skills */
+  .soft-grid { display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1rem;margin-top:3rem; }
+  .soft-card { background:rgba(8,13,28,0.8);border:1px solid var(--border);border-radius:10px;padding:1.5rem;text-align:center;transition:transform 0.3s,border-color 0.3s; }
+  .soft-card:hover { transform:translateY(-5px);border-color:rgba(139,47,255,0.4); }
+  .soft-icon { font-size:2rem;margin-bottom:0.8rem;display:block; }
+  .soft-card h4 { font-size:0.85rem;color:var(--text);letter-spacing:1px; }
+
+  /* Languages */
+  .lang-row { display:flex;gap:1rem;flex-wrap:wrap;margin-top:2rem; }
+  .lang-pill { background:rgba(8,13,28,0.8);border:1px solid var(--border);border-radius:50px;padding:0.6rem 1.5rem;display:flex;align-items:center;gap:0.6rem;font-size:0.85rem;transition:border-color 0.2s; }
+  .lang-pill:hover { border-color:var(--cyan); }
+  .lang-flag { font-size:1.2rem; }
+
+  @media(max-width:768px) { .about-grid{grid-template-columns:1fr;gap:3rem;} .orbit1{width:260px;height:260px;} .orbit2{width:310px;height:310px;} .orbit3{display:none;} }
+</style>
+</head>
+<body>
+<div id="cursor"></div><div id="cursor-ring"></div>
+<canvas id="particles"></canvas>
+<!-- BACKGROUND ANIMATIONS -->
+<div class="bg-ball ball1"></div><div class="bg-ball ball2"></div><div class="bg-ball ball3"></div>
+<div class="bg-ball ball4"></div><div class="bg-ball ball5"></div><div class="bg-ball ball6"></div>
+<div class="bg-ball ball7"></div><div class="bg-ball ball8"></div><div class="bg-ball ball9"></div><div class="bg-ball ball10"></div>
+<div class="bg-icon bgi1">🐍</div><div class="bg-icon bgi2">🤖</div><div class="bg-icon bgi3">📊</div>
+<div class="bg-icon bgi4">🧠</div><div class="bg-icon bgi5">⚡</div><div class="bg-icon bgi6">🔬</div>
+<div class="bg-icon bgi7">📈</div><div class="bg-icon bgi8">💡</div>
+<div class="bg-star star1"></div><div class="bg-star star2"></div><div class="bg-star star3"></div>
+<div class="bg-star star4"></div><div class="bg-star star5"></div><div class="bg-star star6"></div>
+<div class="bg-star star7"></div><div class="bg-star star8"></div>
+<div class="bg-pie pie1"></div><div class="bg-pie pie2"></div><div class="bg-pie pie3"></div>
+<div class="bg-bars bars1"><span></span><span></span><span></span><span></span></div>
+<div class="bg-bars bars2"><span></span><span></span><span></span><span></span></div>
+<div class="bg-line line1"></div><div class="bg-line line2"></div>
+<div class="bg-line line3"></div><div class="bg-line line4"></div>
+<div class="bg-grid"></div>
+<div class="bg-shapes">
+  <div class="shape shape-hex shape-hex1"></div>
+  <div class="shape shape-hex shape-hex2"></div>
+  <div class="shape shape-hex shape-hex3"></div>
+  <div class="shape shape-tri shape-tri1"></div>
+  <div class="shape shape-tri shape-tri2"></div>
+  <div class="shape shape-ring shape-ring1"></div>
+  <div class="shape shape-ring shape-ring2"></div>
+  <div class="shape shape-diamond shape-diamond1"></div>
+  <div class="shape shape-diamond shape-diamond2"></div>
+  <div class="shape shape-dots"></div>
+  <div class="shape shape-dots2"></div>
+</div>
+<div class="aurora aurora1"></div>
+<div class="aurora aurora2"></div>
+<div class="aurora aurora3"></div>
+<div class="corner-glow corner-tl"></div>
+<div class="corner-glow corner-br"></div>
+<div class="corner-glow corner-tr"></div>
+<div class="orb orb1"></div><div class="orb orb2"></div><div class="orb orb3"></div>
+
+<nav>
+  <div class="nav-logo" onclick="goTo('hero')">&lt;SP/&gt;</div>
+  <div class="nav-links">
+    <button onclick="goTo('about')">About</button>
+    <button onclick="goTo('skills')">Skills</button>
+    <button onclick="goTo('projects')">Projects</button>
+    <button onclick="goTo('experience')">Experience</button>
+    <button onclick="goTo('education')">Education</button>
+    <button onclick="goTo('contact')">Contact</button>
+  </div>
+  <button class="nav-toggle" id="menuBtn" onclick="toggleMenu(event)">☰</button>
+</nav>
+<div class="mobile-menu" id="mobileMenu">
+  <button onclick="mobileGo('about')">About</button><button onclick="mobileGo('skills')">Skills</button>
+  <button onclick="mobileGo('projects')">Projects</button><button onclick="mobileGo('experience')">Experience</button>
+  <button onclick="mobileGo('education')">Education</button><button onclick="mobileGo('contact')">Contact</button>
+</div>
+
+<section style="position:relative;z-index:2;">
+  <div class="section-inner">
+    <div class="about-hero reveal">
+      <p class="section-label">// Who I Am</p>
+      <h1 class="page-title">About <span>Me</span></h1>
+    </div>
+
+    <div class="about-grid">
+      <!-- LEFT: Avatar + Info -->
+      <div>
+        <div class="avatar-wrap reveal-scale">
+          <div class="avatar-bg" style="height:420px;">
+            <div class="orbit orbit1"><div class="orbit-icon">🐍</div></div>
+            <div class="orbit orbit2"><div class="orbit-icon">🤖</div></div>
+            <div class="orbit orbit3"><div class="orbit-icon">⚡</div></div>
+            <div class="avatar-circle">👨‍💻</div>
+          </div>
+        </div>
+
+        <div style="margin-top:2rem;">
+          <div class="info-card reveal"><span class="info-icon">📍</span><div><p class="info-label">Location</p><p class="info-value">Pune, Maharashtra, India</p></div></div>
+          <div class="info-card reveal"><span class="info-icon">🎓</span><div><p class="info-label">Education</p><p class="info-value">B.E. Computer Engineering · CGPA 8.54</p></div></div>
+          <div class="info-card reveal"><span class="info-icon">💼</span><div><p class="info-label">Status</p><p class="info-value" style="color:var(--green);">● Open to Opportunities</p></div></div>
+          <div class="info-card reveal"><span class="info-icon">📧</span><div><p class="info-label">Email</p><p class="info-value">sujitpatel096@gmail.com</p></div></div>
+          <div class="info-card reveal"><span class="info-icon">💻</span><div><p class="info-label">GitHub</p><p class="info-value"><a href="https://github.com/sujitpatel096" style="color:var(--cyan);text-decoration:none;" target="_blank">github.com/sujitpatel096</a></p></div></div>
+        </div>
+      </div>
+
+      <!-- RIGHT: Text -->
+      <div class="reveal-right">
+        <p class="section-label">// My Story</p>
+        <h2 class="section-title">Passionate about <span class="highlight">Data & AI</span></h2>
+
+        <div class="about-text">
+          <p>I'm a <strong style="color:var(--cyan);">Data Scientist & ML Engineer</strong> from Pune, India with a solid foundation in Python, machine learning, and AI. I hold a B.E. in Computer Engineering from Gujarat Technological University with a CGPA of 8.54.</p>
+          <p>My journey into data science began during my internship at Greencom Ebizz Infotech where I built Python automation systems, data pipelines, and contributed to an AI-powered children's learning app.</p>
+          <p>I've since completed advanced training in Data Science & AI at Seed Infotech Pune, earning certifications from IBM in Python, Data Analysis, and more. I love turning complex datasets into meaningful, actionable insights.</p>
+          <p>Currently building AI projects like <strong style="color:var(--violet2);">MovieMind AI</strong> — a smart Telegram movie recommendation bot — and always looking for the next big challenge in AI and data engineering.</p>
+        </div>
+
+        <div class="badges-wrap">
+          <span class="badge b-cyan">Python Expert</span>
+          <span class="badge b-violet">Machine Learning</span>
+          <span class="badge b-pink">Generative AI</span>
+          <span class="badge b-green">SQL & MongoDB</span>
+          <span class="badge b-orange">Power BI</span>
+          <span class="badge b-cyan">Deep Learning</span>
+          <span class="badge b-violet">EDA</span>
+          <span class="badge b-pink">Web Scraping</span>
+        </div>
+
+        <div style="margin-top:2.5rem;display:flex;gap:1rem;flex-wrap:wrap;">
+          <button onclick="goTo('projects')" class="btn-primary"><span>See My Projects</span></button>
+          <button onclick="goTo('skills')" class="btn-outline">View Skills</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Soft Skills -->
+    <div style="margin-top:5rem;">
+      <p class="section-label reveal">// Personality</p>
+      <h2 class="section-title reveal">Soft <span class="highlight">Skills</span></h2>
+      <div class="soft-grid">
+        <div class="soft-card reveal"><span class="soft-icon">🧩</span><h4>Problem Solving</h4></div>
+        <div class="soft-card reveal"><span class="soft-icon">🔍</span><h4>Analytical Thinking</h4></div>
+        <div class="soft-card reveal"><span class="soft-icon">🤝</span><h4>Team Collaboration</h4></div>
+        <div class="soft-card reveal"><span class="soft-icon">💬</span><h4>Communication</h4></div>
+        <div class="soft-card reveal"><span class="soft-icon">🚀</span><h4>Self-Motivated</h4></div>
+        <div class="soft-card reveal"><span class="soft-icon">📚</span><h4>Continuous Learning</h4></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-nav">
+      <button onclick="goTo('about')">About</button><button onclick="goTo('skills')">Skills</button>
+      <button onclick="goTo('projects')">Projects</button><button onclick="goTo('experience')">Experience</button>
+      <button onclick="goTo('education')">Education</button><button onclick="goTo('contact')">Contact</button>
+    </div>
+    <p>Built with ❤️ by <span>Sujit Patel</span> · Pune, India · 2025</p>
+  </div>
+</footer>
+<script src="script.js"></script>
+
+<script>
+// ===== TITLE BACKGROUND SPARKLES =====
+(function() {
+  const sparkColors = ['#00f5ff','#b66dff','#ff2d78','#00ffaa','#ffd700','#ff6b35'];
+
+  function addTitleSparks(el) {
+    const count = 6;
+    for (let i = 0; i < count; i++) {
+      const spark = document.createElement('div');
+      spark.className = 'title-spark';
+      const size = Math.random() * 6 + 3;
+      const color = sparkColors[Math.floor(Math.random() * sparkColors.length)];
+      spark.style.cssText = `
+        width:${size}px; height:${size}px;
+        background:${color};
+        left:${Math.random() * 110 - 5}%;
+        top:${Math.random() * 120 - 10}%;
+        animation-duration:${Math.random() * 3 + 2}s;
+        animation-delay:-${Math.random() * 3}s;
+        box-shadow: 0 0 ${size * 2}px ${color};
+      `;
+      el.style.position = 'relative';
+      el.appendChild(spark);
+    }
+  }
+
+  window.addEventListener('load', function() {
+    // Add to all page titles and section titles
+    document.querySelectorAll('.page-title, .section-title, .hero-name').forEach(el => {
+      addTitleSparks(el);
+    });
+  });
+})();
+</script>
+
+</body>
+</html>

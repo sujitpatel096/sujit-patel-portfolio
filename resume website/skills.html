@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Skills — Sujit Patel</title>
+<link rel="stylesheet" href="style.css">
+<style>
+  .skills-grid { display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:1.5rem;margin-bottom:4rem; }
+  .skill-card { background:var(--card);border:1px solid var(--border);border-radius:12px;padding:2rem;position:relative;overflow:hidden;transition:transform 0.4s cubic-bezier(0.16,1,0.3,1),border-color 0.3s,box-shadow 0.4s; }
+  .skill-card::before { content:'';position:absolute;top:0;left:0;right:0;height:3px;background:var(--grad);transform:scaleX(0);transform-origin:left;transition:transform 0.5s cubic-bezier(0.16,1,0.3,1); }
+  .skill-card:hover::before { transform:scaleX(1); }
+  .skill-card:hover { transform:translateY(-8px);border-color:rgba(0,245,255,0.25);box-shadow:0 25px 70px rgba(0,0,0,0.5),0 0 30px rgba(0,245,255,0.06); }
+  .skill-card[data-color="cyan"] { --grad:linear-gradient(90deg,var(--cyan),var(--violet2)); }
+  .skill-card[data-color="violet"] { --grad:linear-gradient(90deg,var(--violet),var(--pink)); }
+  .skill-card[data-color="pink"] { --grad:linear-gradient(90deg,var(--pink),var(--orange)); }
+  .skill-icon-big { font-size:2.5rem;margin-bottom:1.2rem;display:block; }
+  .skill-card h3 { font-size:1.05rem;font-weight:700;margin-bottom:1.2rem;color:var(--text); }
+  .skill-tags { display:flex;flex-wrap:wrap;gap:0.5rem; }
+  .s-tag { font-size:0.68rem;padding:0.25rem 0.65rem;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.07);border-radius:3px;color:var(--muted);font-family:'Space Mono',monospace;transition:border-color 0.2s,color 0.2s; }
+  .s-tag:hover { border-color:rgba(0,245,255,0.3);color:var(--cyan); }
+
+  /* Skill bars */
+  .bars-section { background:rgba(8,13,28,0.6);border:1px solid var(--border);border-radius:16px;padding:2.5rem;margin-bottom:4rem; }
+  .bars-grid { display:grid;grid-template-columns:1fr 1fr;gap:0 4rem; }
+  .skill-bar-item { margin-bottom:1.8rem; }
+  .skill-bar-header { display:flex;justify-content:space-between;align-items:center;margin-bottom:0.6rem; }
+  .skill-bar-name { font-size:0.88rem;color:var(--text); }
+  .skill-bar-pct { font-family:'Space Mono',monospace;font-size:0.75rem;color:var(--cyan); }
+  .skill-bar-bg { background:rgba(255,255,255,0.05);border-radius:3px;height:5px;overflow:hidden; }
+  .skill-bar-fill { height:5px;border-radius:3px;width:0;transition:width 1.8s cubic-bezier(0.16,1,0.3,1); }
+  .fill-cyan { background:linear-gradient(90deg,var(--cyan),var(--violet2)); }
+  .fill-violet { background:linear-gradient(90deg,var(--violet),var(--pink)); }
+  .fill-pink { background:linear-gradient(90deg,var(--pink),var(--orange)); }
+  .fill-green { background:linear-gradient(90deg,var(--green),var(--cyan)); }
+
+  /* Hex grid visual */
+  .tools-grid { display:grid;grid-template-columns:repeat(auto-fill,minmax(120px,1fr));gap:1rem; }
+  .tool-item { background:rgba(8,13,28,0.8);border:1px solid var(--border);border-radius:10px;padding:1.2rem 0.8rem;text-align:center;transition:transform 0.3s,border-color 0.3s,box-shadow 0.3s;cursor:default; }
+  .tool-item:hover { transform:translateY(-6px) scale(1.05);border-color:rgba(0,245,255,0.35);box-shadow:0 15px 40px rgba(0,0,0,0.4),0 0 20px rgba(0,245,255,0.1); }
+  .tool-icon { font-size:1.8rem;display:block;margin-bottom:0.5rem; }
+  .tool-name { font-size:0.68rem;color:var(--muted);font-family:'Space Mono',monospace;letter-spacing:1px; }
+
+  @media(max-width:768px) { .bars-grid{grid-template-columns:1fr;} }
+</style>
+</head>
+<body>
+<div id="cursor"></div><div id="cursor-ring"></div>
+<canvas id="particles"></canvas>
+<!-- BACKGROUND ANIMATIONS -->
+<div class="bg-ball ball1"></div><div class="bg-ball ball2"></div><div class="bg-ball ball3"></div>
+<div class="bg-ball ball4"></div><div class="bg-ball ball5"></div><div class="bg-ball ball6"></div>
+<div class="bg-ball ball7"></div><div class="bg-ball ball8"></div><div class="bg-ball ball9"></div><div class="bg-ball ball10"></div>
+<div class="bg-icon bgi1">🐍</div><div class="bg-icon bgi2">🤖</div><div class="bg-icon bgi3">📊</div>
+<div class="bg-icon bgi4">🧠</div><div class="bg-icon bgi5">⚡</div><div class="bg-icon bgi6">🔬</div>
+<div class="bg-icon bgi7">📈</div><div class="bg-icon bgi8">💡</div>
+<div class="bg-star star1"></div><div class="bg-star star2"></div><div class="bg-star star3"></div>
+<div class="bg-star star4"></div><div class="bg-star star5"></div><div class="bg-star star6"></div>
+<div class="bg-star star7"></div><div class="bg-star star8"></div>
+<div class="bg-pie pie1"></div><div class="bg-pie pie2"></div><div class="bg-pie pie3"></div>
+<div class="bg-bars bars1"><span></span><span></span><span></span><span></span></div>
+<div class="bg-bars bars2"><span></span><span></span><span></span><span></span></div>
+<div class="bg-line line1"></div><div class="bg-line line2"></div>
+<div class="bg-line line3"></div><div class="bg-line line4"></div>
+<div class="bg-grid"></div>
+<div class="bg-shapes">
+  <div class="shape shape-hex shape-hex1"></div>
+  <div class="shape shape-hex shape-hex2"></div>
+  <div class="shape shape-hex shape-hex3"></div>
+  <div class="shape shape-tri shape-tri1"></div>
+  <div class="shape shape-tri shape-tri2"></div>
+  <div class="shape shape-ring shape-ring1"></div>
+  <div class="shape shape-ring shape-ring2"></div>
+  <div class="shape shape-diamond shape-diamond1"></div>
+  <div class="shape shape-diamond shape-diamond2"></div>
+  <div class="shape shape-dots"></div>
+  <div class="shape shape-dots2"></div>
+</div>
+<div class="aurora aurora1"></div>
+<div class="aurora aurora2"></div>
+<div class="aurora aurora3"></div>
+<div class="corner-glow corner-tl"></div>
+<div class="corner-glow corner-br"></div>
+<div class="corner-glow corner-tr"></div>
+<div class="orb orb1"></div><div class="orb orb2"></div><div class="orb orb3"></div>
+<nav>
+  <div class="nav-logo" onclick="goTo('hero')">&lt;SP/&gt;</div>
+  <div class="nav-links">
+    <button onclick="goTo('about')">About</button><button onclick="goTo('skills')">Skills</button>
+    <button onclick="goTo('projects')">Projects</button><button onclick="goTo('experience')">Experience</button>
+    <button onclick="goTo('education')">Education</button><button onclick="goTo('contact')">Contact</button>
+  </div>
+  <button class="nav-toggle" id="menuBtn" onclick="toggleMenu(event)">☰</button>
+</nav>
+<div class="mobile-menu" id="mobileMenu">
+  <button onclick="mobileGo('about')">About</button><button onclick="mobileGo('skills')">Skills</button>
+  <button onclick="mobileGo('projects')">Projects</button><button onclick="mobileGo('experience')">Experience</button>
+  <button onclick="mobileGo('education')">Education</button><button onclick="mobileGo('contact')">Contact</button>
+</div>
+
+<section style="position:relative;z-index:2;">
+  <div class="section-inner">
+    <div style="text-align:center;padding-top:4rem;">
+      <p class="section-label reveal">// Technical Arsenal</p>
+      <h1 class="section-title reveal">Skills & <span class="highlight">Tools</span></h1>
+    </div>
+
+    <div class="skills-grid">
+      <div class="skill-card reveal" data-color="cyan"><span class="skill-icon-big">🐍</span><h3>Python Development</h3><div class="skill-tags"><span class="s-tag">Core Python</span><span class="s-tag">OOPs</span><span class="s-tag">File Handling</span><span class="s-tag">Exception Handling</span><span class="s-tag">APIs</span><span class="s-tag">DSA</span><span class="s-tag">Modular Programming</span></div></div>
+      <div class="skill-card reveal" data-color="violet"><span class="skill-icon-big">📊</span><h3>Data Science & Analytics</h3><div class="skill-tags"><span class="s-tag">Pandas</span><span class="s-tag">NumPy</span><span class="s-tag">Matplotlib</span><span class="s-tag">Seaborn</span><span class="s-tag">Plotly</span><span class="s-tag">EDA</span><span class="s-tag">Statsmodels</span><span class="s-tag">BeautifulSoup</span></div></div>
+      <div class="skill-card reveal" data-color="pink"><span class="skill-icon-big">🤖</span><h3>Machine Learning</h3><div class="skill-tags"><span class="s-tag">Scikit-learn</span><span class="s-tag">Regression</span><span class="s-tag">Classification</span><span class="s-tag">TensorFlow</span><span class="s-tag">Keras</span><span class="s-tag">SciPy</span></div></div>
+      <div class="skill-card reveal" data-color="cyan"><span class="skill-icon-big">🧠</span><h3>Generative AI & LLMs</h3><div class="skill-tags"><span class="s-tag">LLMs</span><span class="s-tag">Prompt Engineering</span><span class="s-tag">Conversational AI</span><span class="s-tag">AI Applications</span><span class="s-tag">OpenAI API</span></div></div>
+      <div class="skill-card reveal" data-color="violet"><span class="skill-icon-big">🗄️</span><h3>Databases</h3><div class="skill-tags"><span class="s-tag">SQL</span><span class="s-tag">MySQL</span><span class="s-tag">MongoDB</span><span class="s-tag">CRUD</span><span class="s-tag">Joins</span><span class="s-tag">Aggregations</span><span class="s-tag">Subqueries</span></div></div>
+      <div class="skill-card reveal" data-color="pink"><span class="skill-icon-big">📈</span><h3>BI & Visualization</h3><div class="skill-tags"><span class="s-tag">Power BI</span><span class="s-tag">Excel</span><span class="s-tag">R (ggplot2)</span><span class="s-tag">dplyr</span><span class="s-tag">tidyr</span><span class="s-tag">Streamlit</span></div></div>
+    </div>
+
+    <!-- Skill Bars -->
+    <div class="bars-section skill-bar-section reveal">
+      <p class="section-label" style="margin-bottom:1.5rem;">// Proficiency Levels</p>
+      <div class="bars-grid">
+        <div>
+          <div class="skill-bar-item"><div class="skill-bar-header"><span class="skill-bar-name">Python</span><span class="skill-bar-pct">92%</span></div><div class="skill-bar-bg"><div class="skill-bar-fill fill-cyan" data-width="92"></div></div></div>
+          <div class="skill-bar-item"><div class="skill-bar-header"><span class="skill-bar-name">Data Analysis / EDA</span><span class="skill-bar-pct">88%</span></div><div class="skill-bar-bg"><div class="skill-bar-fill fill-green" data-width="88"></div></div></div>
+          <div class="skill-bar-item"><div class="skill-bar-header"><span class="skill-bar-name">Machine Learning</span><span class="skill-bar-pct">82%</span></div><div class="skill-bar-bg"><div class="skill-bar-fill fill-violet" data-width="82"></div></div></div>
+          <div class="skill-bar-item"><div class="skill-bar-header"><span class="skill-bar-name">SQL & Databases</span><span class="skill-bar-pct">80%</span></div><div class="skill-bar-bg"><div class="skill-bar-fill fill-cyan" data-width="80"></div></div></div>
+        </div>
+        <div>
+          <div class="skill-bar-item"><div class="skill-bar-header"><span class="skill-bar-name">Power BI / Excel</span><span class="skill-bar-pct">78%</span></div><div class="skill-bar-bg"><div class="skill-bar-fill fill-pink" data-width="78"></div></div></div>
+          <div class="skill-bar-item"><div class="skill-bar-header"><span class="skill-bar-name">Generative AI / LLMs</span><span class="skill-bar-pct">72%</span></div><div class="skill-bar-bg"><div class="skill-bar-fill fill-violet" data-width="72"></div></div></div>
+          <div class="skill-bar-item"><div class="skill-bar-header"><span class="skill-bar-name">Deep Learning (TF/Keras)</span><span class="skill-bar-pct">65%</span></div><div class="skill-bar-bg"><div class="skill-bar-fill fill-pink" data-width="65"></div></div></div>
+          <div class="skill-bar-item"><div class="skill-bar-header"><span class="skill-bar-name">R Language</span><span class="skill-bar-pct">60%</span></div><div class="skill-bar-bg"><div class="skill-bar-fill fill-green" data-width="60"></div></div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Tools -->
+    <p class="section-label reveal">// Development Tools</p>
+    <h2 class="section-title reveal">Tools I <span class="highlight">Use</span></h2>
+    <div class="tools-grid">
+      <div class="tool-item reveal"><span class="tool-icon">🧪</span><p class="tool-name">Jupyter</p></div>
+      <div class="tool-item reveal"><span class="tool-icon">🐍</span><p class="tool-name">PyCharm</p></div>
+      <div class="tool-item reveal"><span class="tool-icon">💻</span><p class="tool-name">VS Code</p></div>
+      <div class="tool-item reveal"><span class="tool-icon">🐍</span><p class="tool-name">Anaconda</p></div>
+      <div class="tool-item reveal"><span class="tool-icon">☁️</span><p class="tool-name">Google Colab</p></div>
+      <div class="tool-item reveal"><span class="tool-icon">📊</span><p class="tool-name">Power BI</p></div>
+      <div class="tool-item reveal"><span class="tool-icon">📗</span><p class="tool-name">Excel</p></div>
+      <div class="tool-item reveal"><span class="tool-icon">🔵</span><p class="tool-name">MySQL</p></div>
+      <div class="tool-item reveal"><span class="tool-icon">🍃</span><p class="tool-name">MongoDB</p></div>
+      <div class="tool-item reveal"><span class="tool-icon">🌊</span><p class="tool-name">Streamlit</p></div>
+      <div class="tool-item reveal"><span class="tool-icon">📐</span><p class="tool-name">RStudio</p></div>
+      <div class="tool-item reveal"><span class="tool-icon">🤖</span><p class="tool-name">Telegram API</p></div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-nav">
+      <button onclick="goTo('about')">About</button><button onclick="goTo('skills')">Skills</button>
+      <button onclick="goTo('projects')">Projects</button><button onclick="goTo('experience')">Experience</button>
+      <button onclick="goTo('education')">Education</button><button onclick="goTo('contact')">Contact</button>
+    </div>
+    <p>Built with ❤️ by <span>Sujit Patel</span> · Pune, India · 2025</p>
+  </div>
+</footer>
+<script src="script.js"></script>
+
+<script>
+// ===== TITLE BACKGROUND SPARKLES =====
+(function() {
+  const sparkColors = ['#00f5ff','#b66dff','#ff2d78','#00ffaa','#ffd700','#ff6b35'];
+
+  function addTitleSparks(el) {
+    const count = 6;
+    for (let i = 0; i < count; i++) {
+      const spark = document.createElement('div');
+      spark.className = 'title-spark';
+      const size = Math.random() * 6 + 3;
+      const color = sparkColors[Math.floor(Math.random() * sparkColors.length)];
+      spark.style.cssText = `
+        width:${size}px; height:${size}px;
+        background:${color};
+        left:${Math.random() * 110 - 5}%;
+        top:${Math.random() * 120 - 10}%;
+        animation-duration:${Math.random() * 3 + 2}s;
+        animation-delay:-${Math.random() * 3}s;
+        box-shadow: 0 0 ${size * 2}px ${color};
+      `;
+      el.style.position = 'relative';
+      el.appendChild(spark);
+    }
+  }
+
+  window.addEventListener('load', function() {
+    // Add to all page titles and section titles
+    document.querySelectorAll('.page-title, .section-title, .hero-name').forEach(el => {
+      addTitleSparks(el);
+    });
+  });
+})();
+</script>
+
+</body>
+</html>

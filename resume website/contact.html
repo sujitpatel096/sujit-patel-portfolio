@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Contact — Sujit Patel</title>
+<link rel="stylesheet" href="style.css">
+<style>
+  .contact-layout { display:grid;grid-template-columns:1fr 1.2fr;gap:5rem;align-items:start;margin-top:3rem; }
+
+  /* Left */
+  .contact-intro h2 { font-size:clamp(2rem,4vw,3rem);font-weight:800;line-height:1.2;margin-bottom:1.5rem; }
+  .contact-intro p { color:#6b7db3;font-size:1rem;line-height:1.9;margin-bottom:2rem; }
+  .contact-cards-list { display:flex;flex-direction:column;gap:1rem; }
+  .c-card { background:var(--card);border:1px solid var(--border);border-radius:12px;padding:1.4rem 1.6rem;display:flex;align-items:center;gap:1.2rem;transition:border-color 0.3s,transform 0.3s,box-shadow 0.3s;text-decoration:none;cursor:none; }
+  .c-card:hover { border-color:rgba(0,245,255,0.35);transform:translateX(8px);box-shadow:0 15px 50px rgba(0,0,0,0.4),0 0 20px rgba(0,245,255,0.08); }
+  .c-icon { width:46px;height:46px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:1.4rem;flex-shrink:0; }
+  .ci-email { background:linear-gradient(135deg,rgba(0,245,255,0.15),rgba(139,47,255,0.1));border:1px solid rgba(0,245,255,0.2); }
+  .ci-phone { background:linear-gradient(135deg,rgba(0,255,170,0.15),rgba(0,245,255,0.1));border:1px solid rgba(0,255,170,0.2); }
+  .ci-linkedin { background:linear-gradient(135deg,rgba(139,47,255,0.15),rgba(255,45,120,0.1));border:1px solid rgba(139,47,255,0.2); }
+  .ci-telegram { background:linear-gradient(135deg,rgba(0,245,255,0.15),rgba(0,255,170,0.1));border:1px solid rgba(0,245,255,0.2); }
+  .c-label { font-size:0.68rem;color:var(--muted);letter-spacing:2px;text-transform:uppercase;font-family:'Space Mono',monospace;margin-bottom:0.2rem; }
+  .c-value { font-size:0.9rem;color:var(--text);transition:color 0.2s; }
+  .c-card:hover .c-value { color:var(--cyan); }
+
+  /* Right: contact form */
+  .contact-form-wrap { background:var(--card);border:1px solid var(--border);border-radius:16px;padding:2.5rem;position:relative;overflow:hidden; }
+  .contact-form-wrap::before { content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--cyan),var(--violet),var(--pink));animation:borderFlow 4s ease infinite;background-size:200% auto; }
+
+  .form-group { margin-bottom:1.5rem; }
+  .form-label { display:block;font-size:0.72rem;color:var(--muted);letter-spacing:2px;text-transform:uppercase;font-family:'Space Mono',monospace;margin-bottom:0.6rem; }
+  .form-input { width:100%;background:rgba(4,6,15,0.8);border:1px solid rgba(255,255,255,0.08);border-radius:8px;padding:0.9rem 1.1rem;color:var(--text);font-family:'Syne',sans-serif;font-size:0.95rem;transition:border-color 0.3s,box-shadow 0.3s;outline:none;cursor:none; }
+  .form-input:focus { border-color:rgba(0,245,255,0.4);box-shadow:0 0 0 3px rgba(0,245,255,0.08); }
+  .form-input::placeholder { color:rgba(107,125,179,0.5); }
+  textarea.form-input { resize:vertical;min-height:130px; }
+
+  .form-submit { width:100%;background:linear-gradient(135deg,var(--cyan),var(--violet),var(--pink));border:none;border-radius:8px;padding:1rem;color:#fff;font-family:'Syne',sans-serif;font-size:0.9rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;cursor:none;transition:transform 0.3s,box-shadow 0.3s;position:relative;overflow:hidden;background-size:200% auto;animation:borderFlow 4s linear infinite; }
+  .form-submit:hover { transform:translateY(-3px);box-shadow:0 0 40px rgba(0,245,255,0.4),0 20px 60px rgba(0,0,0,0.4); }
+
+  /* Availability badge */
+  .avail-badge { display:inline-flex;align-items:center;gap:0.6rem;background:rgba(0,255,170,0.08);border:1px solid rgba(0,255,170,0.25);border-radius:50px;padding:0.5rem 1.2rem;margin-bottom:2rem;font-size:0.8rem;color:var(--green); }
+  .avail-dot { width:8px;height:8px;border-radius:50%;background:var(--green);box-shadow:0 0 10px var(--green);animation:pulse 2s ease infinite; }
+
+  @media(max-width:768px) { .contact-layout{grid-template-columns:1fr;gap:3rem;} }
+</style>
+</head>
+<body>
+<div id="cursor"></div><div id="cursor-ring"></div>
+<canvas id="particles"></canvas>
+<!-- BACKGROUND ANIMATIONS -->
+<div class="bg-ball ball1"></div><div class="bg-ball ball2"></div><div class="bg-ball ball3"></div>
+<div class="bg-ball ball4"></div><div class="bg-ball ball5"></div><div class="bg-ball ball6"></div>
+<div class="bg-ball ball7"></div><div class="bg-ball ball8"></div><div class="bg-ball ball9"></div><div class="bg-ball ball10"></div>
+<div class="bg-icon bgi1">🐍</div><div class="bg-icon bgi2">🤖</div><div class="bg-icon bgi3">📊</div>
+<div class="bg-icon bgi4">🧠</div><div class="bg-icon bgi5">⚡</div><div class="bg-icon bgi6">🔬</div>
+<div class="bg-icon bgi7">📈</div><div class="bg-icon bgi8">💡</div>
+<div class="bg-star star1"></div><div class="bg-star star2"></div><div class="bg-star star3"></div>
+<div class="bg-star star4"></div><div class="bg-star star5"></div><div class="bg-star star6"></div>
+<div class="bg-star star7"></div><div class="bg-star star8"></div>
+<div class="bg-pie pie1"></div><div class="bg-pie pie2"></div><div class="bg-pie pie3"></div>
+<div class="bg-bars bars1"><span></span><span></span><span></span><span></span></div>
+<div class="bg-bars bars2"><span></span><span></span><span></span><span></span></div>
+<div class="bg-line line1"></div><div class="bg-line line2"></div>
+<div class="bg-line line3"></div><div class="bg-line line4"></div>
+<div class="bg-grid"></div>
+<div class="bg-shapes">
+  <div class="shape shape-hex shape-hex1"></div>
+  <div class="shape shape-hex shape-hex2"></div>
+  <div class="shape shape-hex shape-hex3"></div>
+  <div class="shape shape-tri shape-tri1"></div>
+  <div class="shape shape-tri shape-tri2"></div>
+  <div class="shape shape-ring shape-ring1"></div>
+  <div class="shape shape-ring shape-ring2"></div>
+  <div class="shape shape-diamond shape-diamond1"></div>
+  <div class="shape shape-diamond shape-diamond2"></div>
+  <div class="shape shape-dots"></div>
+  <div class="shape shape-dots2"></div>
+</div>
+<div class="aurora aurora1"></div>
+<div class="aurora aurora2"></div>
+<div class="aurora aurora3"></div>
+<div class="corner-glow corner-tl"></div>
+<div class="corner-glow corner-br"></div>
+<div class="corner-glow corner-tr"></div>
+<div class="orb orb1"></div><div class="orb orb2"></div><div class="orb orb3"></div>
+<nav>
+  <div class="nav-logo" onclick="goTo('hero')">&lt;SP/&gt;</div>
+  <div class="nav-links">
+    <button onclick="goTo('about')">About</button><button onclick="goTo('skills')">Skills</button>
+    <button onclick="goTo('projects')">Projects</button><button onclick="goTo('experience')">Experience</button>
+    <button onclick="goTo('education')">Education</button><button onclick="goTo('contact')">Contact</button>
+  </div>
+  <button class="nav-toggle" id="menuBtn" onclick="toggleMenu(event)">☰</button>
+</nav>
+<div class="mobile-menu" id="mobileMenu">
+  <button onclick="mobileGo('about')">About</button><button onclick="mobileGo('skills')">Skills</button>
+  <button onclick="mobileGo('projects')">Projects</button><button onclick="mobileGo('experience')">Experience</button>
+  <button onclick="mobileGo('education')">Education</button><button onclick="mobileGo('contact')">Contact</button>
+</div>
+
+<section style="position:relative;z-index:2;">
+  <div class="section-inner">
+    <div style="text-align:center;padding-top:4rem;margin-bottom:1rem;">
+      <p class="section-label reveal">// Get In Touch</p>
+      <h1 class="section-title reveal">Let's <span class="highlight">Connect</span></h1>
+    </div>
+
+    <div class="contact-layout">
+      <!-- Left -->
+      <div class="reveal-left">
+        <div class="avail-badge"><div class="avail-dot"></div>Open to Opportunities</div>
+        <div class="contact-intro">
+          <h2>Let's build something <span class="highlight">amazing</span> together</h2>
+          <p>I'm actively looking for data science, ML engineering, and AI development roles. Available for freelance projects, full-time positions, and exciting collaborations.</p>
+        </div>
+        <div class="contact-cards-list">
+          <a href="mailto:sujitpatel096@gmail.com" class="c-card">
+            <div class="c-icon ci-email">📧</div>
+            <div><p class="c-label">Email</p><p class="c-value">sujitpatel096@gmail.com</p></div>
+          </a>
+          <a href="tel:+919157673189" class="c-card">
+            <div class="c-icon ci-phone">📱</div>
+            <div><p class="c-label">Phone</p><p class="c-value">+91 9157673189</p></div>
+          </a>
+          <a href="https://www.linkedin.com/in/sujit-patel-ba5658275" class="c-card">
+            <div class="c-icon ci-linkedin">💼</div>
+            <div><p class="c-label">LinkedIn</p><p class="c-value">linkedin.com/in/sujit-patel</p></div>
+          </a>
+          <a href="https://t.me/moviemind_ai_bot" class="c-card">
+            <div class="c-icon ci-telegram">🤖</div>
+            <div><p class="c-label">Telegram Bot</p><p class="c-value">@moviemind_ai_bot</p></div>
+          </a>
+          <a href="https://github.com/sujitpatel096" class="c-card" target="_blank">
+            <div class="c-icon" style="background:linear-gradient(135deg,rgba(255,255,255,0.1),rgba(0,245,255,0.08));border:1px solid rgba(255,255,255,0.15);">🐙</div>
+            <div><p class="c-label">GitHub</p><p class="c-value">github.com/sujitpatel096</p></div>
+          </a>
+        </div>
+      </div>
+
+      <!-- Right: Form -->
+      <div class="contact-form-wrap reveal-right">
+        <p class="section-label" style="margin-bottom:1.5rem;">// Send a Message</p>
+        <div class="form-group">
+          <label class="form-label">Your Name</label>
+          <input type="text" class="form-input" placeholder="Enter your name" id="fname">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Email Address</label>
+          <input type="email" class="form-input" placeholder="your@email.com" id="femail">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Subject</label>
+          <input type="text" class="form-input" placeholder="Job Opportunity / Collaboration" id="fsubject">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Message</label>
+          <textarea class="form-input" placeholder="Tell me about your project or opportunity..." id="fmessage"></textarea>
+        </div>
+        <button class="form-submit" onclick="sendEmail()">Send Message 🚀</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-nav">
+      <button onclick="goTo('about')">About</button><button onclick="goTo('skills')">Skills</button>
+      <button onclick="goTo('projects')">Projects</button><button onclick="goTo('experience')">Experience</button>
+      <button onclick="goTo('education')">Education</button><button onclick="goTo('contact')">Contact</button>
+    </div>
+    <p>Built with ❤️ by <span>Sujit Patel</span> · Pune, India · 2025</p>
+    <p style="margin-top:0.3rem;font-size:0.7rem;">Python · Data Science · Machine Learning · AI</p>
+  </div>
+</footer>
+<script src="script.js"></script>
+<script>
+function sendEmail() {
+  const name = document.getElementById('fname').value;
+  const email = document.getElementById('femail').value;
+  const subject = document.getElementById('fsubject').value;
+  const message = document.getElementById('fmessage').value;
+  if (!name || !email || !message) { alert('Please fill in all required fields!'); return; }
+  const mailtoLink = `mailto:sujitpatel096@gmail.com?subject=${encodeURIComponent(subject || 'Message from Portfolio')}&body=${encodeURIComponent(`Name: ${name}\nEmail: ${email}\n\n${message}`)}`;
+  window.location.href = mailtoLink;
+}
+</script>
+
+<script>
+// ===== TITLE BACKGROUND SPARKLES =====
+(function() {
+  const sparkColors = ['#00f5ff','#b66dff','#ff2d78','#00ffaa','#ffd700','#ff6b35'];
+
+  function addTitleSparks(el) {
+    const count = 6;
+    for (let i = 0; i < count; i++) {
+      const spark = document.createElement('div');
+      spark.className = 'title-spark';
+      const size = Math.random() * 6 + 3;
+      const color = sparkColors[Math.floor(Math.random() * sparkColors.length)];
+      spark.style.cssText = `
+        width:${size}px; height:${size}px;
+        background:${color};
+        left:${Math.random() * 110 - 5}%;
+        top:${Math.random() * 120 - 10}%;
+        animation-duration:${Math.random() * 3 + 2}s;
+        animation-delay:-${Math.random() * 3}s;
+        box-shadow: 0 0 ${size * 2}px ${color};
+      `;
+      el.style.position = 'relative';
+      el.appendChild(spark);
+    }
+  }
+
+  window.addEventListener('load', function() {
+    // Add to all page titles and section titles
+    document.querySelectorAll('.page-title, .section-title, .hero-name').forEach(el => {
+      addTitleSparks(el);
+    });
+  });
+})();
+</script>
+
+</body>
+</html>
