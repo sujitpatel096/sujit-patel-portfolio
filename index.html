@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8">
+<!-- FIX: lock zoom on mobile to stop pinch-zoom / cards zooming out -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
 <title>Sujit Patel — Data Scientist & ML Engineer</title>
 <link rel="stylesheet" href="style.css">
 <style>
-  #hero { min-height:100vh;display:flex;align-items:center;justify-content:center;flex-direction:column;text-align:center;padding:6rem 2rem 4rem;position:relative;overflow:hidden; }
+  #hero { min-height:100vh;display:flex;align-items:center;justify-content:center;flex-direction:column;text-align:center;padding:6rem 1.5rem 4rem;position:relative;overflow:hidden;width:100%;max-width:100%; }
   .hero-rings { position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);pointer-events:none;z-index:0; }
   .ring { position:absolute;border-radius:50%;border:1px solid;transform:translate(-50%,-50%); }
   .ring1 { width:600px;height:600px;border-color:rgba(0,245,255,0.06);animation:spin 40s linear infinite; }
@@ -16,7 +18,7 @@
   .ring-dot-violet { background:var(--violet2);box-shadow:0 0 15px var(--violet2); }
   .ring-dot-pink { background:var(--pink);box-shadow:0 0 15px var(--pink); }
   .scanline { position:absolute;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,rgba(0,245,255,0.15),transparent);animation:scanline 6s linear infinite;pointer-events:none;z-index:1; }
-  .hero-content { position:relative;z-index:2; }
+  .hero-content { position:relative;z-index:2;width:100%;max-width:100%; }
   .hero-eyebrow { font-family:'Space Mono',monospace;font-size:0.72rem;color:var(--cyan);letter-spacing:5px;text-transform:uppercase;display:inline-flex;align-items:center;gap:0.8rem;margin-bottom:2.5rem;animation:fadeInDown 0.8s ease both; }
   .hero-eyebrow::before,.hero-eyebrow::after { content:'';width:30px;height:1px;background:linear-gradient(90deg,transparent,var(--cyan)); }
   .hero-eyebrow::after { transform:scaleX(-1); }
@@ -40,7 +42,7 @@
     100% { background-position: 400% center; }
   }
   @keyframes gradientFlow { 0%{background-position:0% 50%}50%{background-position:100% 50%}100%{background-position:0% 50%} }
-  .hero-role { font-size:clamp(1rem,2.5vw,1.4rem);color:var(--muted);letter-spacing:4px;text-transform:uppercase;margin:1.5rem 0;animation:fadeInUp 1s 0.4s ease both; }
+  .hero-role { font-size:clamp(0.85rem,2.5vw,1.4rem);color:var(--muted);letter-spacing:4px;text-transform:uppercase;margin:1.5rem 0;animation:fadeInUp 1s 0.4s ease both;line-height:1.8; }
   .hero-typed-wrap { margin:1rem 0 2.5rem;animation:fadeInUp 1s 0.5s ease both; }
   .hero-desc { max-width:600px;margin:0 auto 3rem;color:#8898c8;line-height:1.9;font-size:1.05rem;animation:fadeInUp 1s 0.6s ease both; }
   .hero-btns { display:flex;gap:1.2rem;justify-content:center;flex-wrap:wrap;animation:fadeInUp 1s 0.8s ease both;margin-bottom:3rem; }
@@ -212,9 +214,12 @@
   .avail-dot { width:8px;height:8px;border-radius:50%;background:var(--green);box-shadow:0 0 10px var(--green);animation:pulse 2s ease infinite; }
 
   @media(max-width:768px) {
+    #hero { padding:5rem 1.2rem 3rem; }
     .about-grid,.contact-layout{grid-template-columns:1fr;gap:3rem;}
     .orbit1{width:260px;height:260px;}.orbit2{width:310px;height:310px;}.orbit3{display:none;}
     .bars-grid{grid-template-columns:1fr;}
+    .hero-stats{gap:1.5rem 2rem;}
+    .skills-grid,.projects-grid,.edu-grid,.certs-grid{grid-template-columns:1fr;}
   }
 </style>
 </head>
@@ -293,10 +298,10 @@
       <span class="name-data">Data</span>
       <span class="name-scientist">Scientist</span>
     </h1>
-    <!-- FIX 2 -->
-    <p class="hero-role">ML Engineer · Python Developer · AI Builder</p>
+    <!-- Roles: added Website Developer, Automation Developer, AI Agent Creator -->
+    <p class="hero-role">ML Engineer · Python Developer · AI Builder<br>Website Developer · Automation Developer · AI Agent Builder</p>
     <div class="hero-typed-wrap"><p class="typed-text">&gt;&nbsp;<span id="typed-inner"></span><span class="cursor-blink">█</span></p></div>
-    <p class="hero-desc">Transforming raw data into intelligent systems. Building ML models, AI bots, and automation pipelines that solve real-world problems.</p>
+    <p class="hero-desc">Transforming raw data into intelligent systems. Building ML models, AI bots, automation pipelines, AI agents, and websites that solve real-world problems.</p>
     <div class="hero-btns">
       <button onclick="ss('projects')" class="btn-primary"><span>View My Work</span></button>
       <button onclick="ss('contact')" class="btn-outline">Get In Touch</button>
@@ -308,10 +313,7 @@
       <div class="hero-stat"><div class="num" data-target="8" data-suffix="+">0+</div><div class="lbl">Tech Skills</div></div>
     </div>
   </div>
-  <div class="scroll-indicator" onclick="ss('about')" style="cursor:none;">
-    <div class="scroll-mouse"><div class="scroll-dot"></div></div>
-    <span>Scroll Down</span>
-  </div>
+  <!-- Scroll Down indicator removed as requested -->
 </section>
 
 <!-- ABOUT -->
@@ -343,10 +345,10 @@
           <p>I'm a <strong style="color:var(--cyan);">Data Scientist & ML Engineer</strong> from Pune, India with a solid foundation in Python, machine learning, and AI. B.E. in Computer Engineering from GTU with CGPA 8.54.</p>
           <p>My journey began at Greencom Ebizz Infotech where I built Python automation systems, data pipelines, and contributed to an AI-powered children's learning app.</p>
           <p>Completed advanced training in Data Science & AI at Seed Infotech Pune, earning certifications from IBM. I love turning complex datasets into meaningful insights.</p>
-          <p>Currently building <strong style="color:var(--violet2);">MovieMind AI</strong> — a smart AI movie recommendation bot — always looking for the next big challenge.</p>
+          <p>I also build <strong style="color:var(--violet2);">AI agents, RAG pipelines, LLM-powered apps, automation tools, and websites</strong> — always looking for the next big challenge.</p>
         </div>
         <div class="badges-wrap">
-          <span class="badge-item b-cyan">Python Expert</span><span class="badge-item b-violet">Machine Learning</span><span class="badge-item b-pink">Generative AI</span><span class="badge-item b-green">SQL & MongoDB</span><span class="badge-item b-orange">Power BI</span><span class="badge-item b-cyan">Deep Learning</span><span class="badge-item b-violet">EDA</span><span class="badge-item b-pink">Web Scraping</span>
+          <span class="badge-item b-cyan">Python Expert</span><span class="badge-item b-violet">Machine Learning</span><span class="badge-item b-pink">Generative AI</span><span class="badge-item b-green">LLMs</span><span class="badge-item b-orange">RAG Pipelines</span><span class="badge-item b-cyan">AI Agents</span><span class="badge-item b-violet">Automation</span><span class="badge-item b-pink">Web Development</span><span class="badge-item b-green">SQL & MongoDB</span><span class="badge-item b-orange">Power BI</span><span class="badge-item b-cyan">Deep Learning</span><span class="badge-item b-violet">Web Scraping</span>
         </div>
         <div style="margin-top:2.5rem;display:flex;gap:1rem;flex-wrap:wrap;">
           <button onclick="ss('projects')" class="btn-primary"><span>See My Projects</span></button>
@@ -377,9 +379,10 @@
       <div class="skill-card reveal" data-color="cyan"><span class="skill-icon-big">🐍</span><h3>Python Development</h3><div class="skill-tags"><span class="s-tag">Core Python</span><span class="s-tag">OOPs</span><span class="s-tag">File Handling</span><span class="s-tag">Exception Handling</span><span class="s-tag">APIs</span><span class="s-tag">DSA</span><span class="s-tag">Modular Programming</span></div></div>
       <div class="skill-card reveal" data-color="violet"><span class="skill-icon-big">📊</span><h3>Data Science & Analytics</h3><div class="skill-tags"><span class="s-tag">Pandas</span><span class="s-tag">NumPy</span><span class="s-tag">Matplotlib</span><span class="s-tag">Seaborn</span><span class="s-tag">Plotly</span><span class="s-tag">EDA</span><span class="s-tag">Statsmodels</span><span class="s-tag">BeautifulSoup</span></div></div>
       <div class="skill-card reveal" data-color="pink"><span class="skill-icon-big">🤖</span><h3>Machine Learning</h3><div class="skill-tags"><span class="s-tag">Scikit-learn</span><span class="s-tag">Regression</span><span class="s-tag">Classification</span><span class="s-tag">TensorFlow</span><span class="s-tag">Keras</span><span class="s-tag">SciPy</span></div></div>
-      <div class="skill-card reveal" data-color="cyan"><span class="skill-icon-big">🧠</span><h3>Generative AI & LLMs</h3><div class="skill-tags"><span class="s-tag">LLMs</span><span class="s-tag">Prompt Engineering</span><span class="s-tag">Conversational AI</span><span class="s-tag">AI Applications</span><span class="s-tag">OpenAI API</span></div></div>
-      <div class="skill-card reveal" data-color="violet"><span class="skill-icon-big">🗄️</span><h3>Databases</h3><div class="skill-tags"><span class="s-tag">SQL</span><span class="s-tag">MySQL</span><span class="s-tag">MongoDB</span><span class="s-tag">CRUD</span><span class="s-tag">Joins</span><span class="s-tag">Aggregations</span><span class="s-tag">Subqueries</span></div></div>
-      <div class="skill-card reveal" data-color="pink"><span class="skill-icon-big">📈</span><h3>BI & Visualization</h3><div class="skill-tags"><span class="s-tag">Power BI</span><span class="s-tag">Excel</span><span class="s-tag">R (ggplot2)</span><span class="s-tag">dplyr</span><span class="s-tag">tidyr</span><span class="s-tag">Streamlit</span></div></div>
+      <div class="skill-card reveal" data-color="cyan"><span class="skill-icon-big">🧠</span><h3>Generative AI & LLMs</h3><div class="skill-tags"><span class="s-tag">LLMs</span><span class="s-tag">RAG Pipelines</span><span class="s-tag">AI Agents</span><span class="s-tag">Prompt Engineering</span><span class="s-tag">Vector Databases</span><span class="s-tag">LangChain</span><span class="s-tag">Conversational AI</span><span class="s-tag">OpenAI API</span><span class="s-tag">Groq / Gemini API</span></div></div>
+      <div class="skill-card reveal" data-color="violet"><span class="skill-icon-big">⚙️</span><h3>Automation & Web</h3><div class="skill-tags"><span class="s-tag">Automation Pipelines</span><span class="s-tag">Web Scraping</span><span class="s-tag">Playwright</span><span class="s-tag">Selenium</span><span class="s-tag">GitHub Actions</span><span class="s-tag">HTML / CSS / JS</span><span class="s-tag">Web Development</span></div></div>
+      <div class="skill-card reveal" data-color="pink"><span class="skill-icon-big">🗄️</span><h3>Databases</h3><div class="skill-tags"><span class="s-tag">SQL</span><span class="s-tag">MySQL</span><span class="s-tag">MongoDB</span><span class="s-tag">CRUD</span><span class="s-tag">Joins</span><span class="s-tag">Aggregations</span><span class="s-tag">Subqueries</span></div></div>
+      <div class="skill-card reveal" data-color="cyan"><span class="skill-icon-big">📈</span><h3>BI & Visualization</h3><div class="skill-tags"><span class="s-tag">Power BI</span><span class="s-tag">Excel</span><span class="s-tag">R (ggplot2)</span><span class="s-tag">dplyr</span><span class="s-tag">tidyr</span><span class="s-tag">Streamlit</span></div></div>
     </div>
     <div class="bars-section skill-bar-section reveal">
       <p class="section-label" style="margin-bottom:1.5rem;">// Proficiency Levels</p>
@@ -388,13 +391,15 @@
           <div class="skill-bar-item"><div class="skill-bar-header"><span class="skill-bar-name">Python</span><span class="skill-bar-pct">92%</span></div><div class="skill-bar-bg"><div class="skill-bar-fill fill-cyan" data-width="92"></div></div></div>
           <div class="skill-bar-item"><div class="skill-bar-header"><span class="skill-bar-name">Data Analysis / EDA</span><span class="skill-bar-pct">88%</span></div><div class="skill-bar-bg"><div class="skill-bar-fill fill-green" data-width="88"></div></div></div>
           <div class="skill-bar-item"><div class="skill-bar-header"><span class="skill-bar-name">Machine Learning</span><span class="skill-bar-pct">82%</span></div><div class="skill-bar-bg"><div class="skill-bar-fill fill-violet" data-width="82"></div></div></div>
-          <div class="skill-bar-item"><div class="skill-bar-header"><span class="skill-bar-name">SQL & Databases</span><span class="skill-bar-pct">80%</span></div><div class="skill-bar-bg"><div class="skill-bar-fill fill-cyan" data-width="80"></div></div></div>
+          <div class="skill-bar-item"><div class="skill-bar-header"><span class="skill-bar-name">Automation / Web Scraping</span><span class="skill-bar-pct">85%</span></div><div class="skill-bar-bg"><div class="skill-bar-fill fill-cyan" data-width="85"></div></div></div>
+          <div class="skill-bar-item"><div class="skill-bar-header"><span class="skill-bar-name">SQL & Databases</span><span class="skill-bar-pct">80%</span></div><div class="skill-bar-bg"><div class="skill-bar-fill fill-pink" data-width="80"></div></div></div>
         </div>
         <div>
-          <div class="skill-bar-item"><div class="skill-bar-header"><span class="skill-bar-name">Power BI / Excel</span><span class="skill-bar-pct">78%</span></div><div class="skill-bar-bg"><div class="skill-bar-fill fill-pink" data-width="78"></div></div></div>
-          <div class="skill-bar-item"><div class="skill-bar-header"><span class="skill-bar-name">Generative AI / LLMs</span><span class="skill-bar-pct">72%</span></div><div class="skill-bar-bg"><div class="skill-bar-fill fill-violet" data-width="72"></div></div></div>
-          <div class="skill-bar-item"><div class="skill-bar-header"><span class="skill-bar-name">Deep Learning (TF/Keras)</span><span class="skill-bar-pct">65%</span></div><div class="skill-bar-bg"><div class="skill-bar-fill fill-pink" data-width="65"></div></div></div>
-          <div class="skill-bar-item"><div class="skill-bar-header"><span class="skill-bar-name">R Language</span><span class="skill-bar-pct">60%</span></div><div class="skill-bar-bg"><div class="skill-bar-fill fill-green" data-width="60"></div></div></div>
+          <div class="skill-bar-item"><div class="skill-bar-header"><span class="skill-bar-name">Generative AI / LLMs</span><span class="skill-bar-pct">78%</span></div><div class="skill-bar-bg"><div class="skill-bar-fill fill-violet" data-width="78"></div></div></div>
+          <div class="skill-bar-item"><div class="skill-bar-header"><span class="skill-bar-name">RAG Pipelines / AI Agents</span><span class="skill-bar-pct">75%</span></div><div class="skill-bar-bg"><div class="skill-bar-fill fill-cyan" data-width="75"></div></div></div>
+          <div class="skill-bar-item"><div class="skill-bar-header"><span class="skill-bar-name">Web Development</span><span class="skill-bar-pct">73%</span></div><div class="skill-bar-bg"><div class="skill-bar-fill fill-pink" data-width="73"></div></div></div>
+          <div class="skill-bar-item"><div class="skill-bar-header"><span class="skill-bar-name">Power BI / Excel</span><span class="skill-bar-pct">78%</span></div><div class="skill-bar-bg"><div class="skill-bar-fill fill-green" data-width="78"></div></div></div>
+          <div class="skill-bar-item"><div class="skill-bar-header"><span class="skill-bar-name">Deep Learning (TF/Keras)</span><span class="skill-bar-pct">65%</span></div><div class="skill-bar-bg"><div class="skill-bar-fill fill-violet" data-width="65"></div></div></div>
         </div>
       </div>
     </div>
@@ -411,6 +416,9 @@
       <div class="tool-item reveal"><span class="tool-icon">🔵</span><p class="tool-name">MySQL</p></div>
       <div class="tool-item reveal"><span class="tool-icon">🍃</span><p class="tool-name">MongoDB</p></div>
       <div class="tool-item reveal"><span class="tool-icon">🌊</span><p class="tool-name">Streamlit</p></div>
+      <div class="tool-item reveal"><span class="tool-icon">🦜</span><p class="tool-name">LangChain</p></div>
+      <div class="tool-item reveal"><span class="tool-icon">⚙️</span><p class="tool-name">GitHub Actions</p></div>
+      <div class="tool-item reveal"><span class="tool-icon">🎭</span><p class="tool-name">Playwright</p></div>
       <div class="tool-item reveal"><span class="tool-icon">📐</span><p class="tool-name">RStudio</p></div>
       <div class="tool-item reveal"><span class="tool-icon">🤖</span><p class="tool-name">Telegram API</p></div>
     </div>
@@ -520,14 +528,21 @@
       <button onclick="ss('education')">Education</button><button onclick="ss('contact')">Contact</button>
     </div>
     <p>Built with ❤️ by <span>Sujit Patel</span> · Pune, India · 2025</p>
-    <p style="margin-top:0.3rem;font-size:0.7rem;">Python · Data Science · Machine Learning · AI</p>
+    <p style="margin-top:0.3rem;font-size:0.7rem;">Python · Data Science · Machine Learning · AI Agents · Automation · Web</p>
   </div>
 </footer>
 
 <script src="script.js"></script>
 <script>
-// Smooth scroll
-function ss(id){const el=document.getElementById(id);if(el){const top=el.getBoundingClientRect().top+window.scrollY-58;window.scrollTo({top,behavior:'smooth'});}}
+// Smooth scroll — reliable, uses scrollIntoView with a fixed nav offset.
+// (CSS scroll-behavior is OFF so there is no conflict / first-scroll jerk.)
+function ss(id){
+  const el=document.getElementById(id);
+  if(!el)return;
+  const navH=58;
+  const y=el.getBoundingClientRect().top+window.pageYOffset-navH;
+  window.scrollTo({top:y,behavior:'smooth'});
+}
 function toggleMenu(e){e.stopPropagation();document.getElementById('mobileMenu').classList.toggle('open');}
 function ms(id){document.getElementById('mobileMenu').classList.remove('open');setTimeout(()=>ss(id),80);}
 document.addEventListener('click',function(e){const m=document.getElementById('mobileMenu'),b=document.getElementById('menuBtn');if(!m.contains(e.target)&&e.target!==b)m.classList.remove('open');});
@@ -556,12 +571,13 @@ document.addEventListener('click',function(e){const m=document.getElementById('m
   if(statsGrid) obs.observe(statsGrid);
 })();
 
-// FIX 3: Typed phrases updated
+// Typed phrases — added AI agents, automation, websites
 initTyped('typed-inner',[
   'Building ML models...',
-  'Training neural networks...',
-  'Analyzing data for insights...',
-  'Deploying AI bots...',
+  'Creating AI agents...',
+  'Building RAG pipelines...',
+  'Automating workflows...',
+  'Developing websites...',
   'Turning data into intelligence...'
 ]);
 
