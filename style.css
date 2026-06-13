@@ -23,8 +23,27 @@
   --glow-pink: 0 0 30px rgba(255,45,120,0.35), 0 0 60px rgba(255,45,120,0.15);
 }
 
-html { scroll-behavior: smooth; }
-body { background: var(--bg); color: var(--text); font-family: 'Syne', sans-serif; overflow-x: hidden; cursor: none; min-height: 100vh; }
+/* FIX: stop horizontal overflow + pinch zoom shifting layout on mobile.
+   NOTE: scroll-behavior is intentionally NOT set here — the JS handles
+   smooth scrolling. Having both caused the "jerk/break on first scroll". */
+html {
+  width: 100%;
+  max-width: 100%;
+  overflow-x: hidden;
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'Syne', sans-serif;
+  overflow-x: hidden;
+  width: 100%;
+  max-width: 100%;
+  cursor: none;
+  min-height: 100vh;
+  overscroll-behavior-x: none;    /* stop sideways rubber-band that shows the background */
+}
 
 /* ===== CUSTOM CURSOR ===== */
 #cursor { width:14px;height:14px;background:var(--cyan);border-radius:50%;position:fixed;top:0;left:0;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);mix-blend-mode:screen;transition:transform 0.1s,width 0.2s,height 0.2s; }
@@ -110,8 +129,8 @@ nav::after { content:'';position:absolute;bottom:0;left:0;right:0;height:1px;bac
 .mobile-menu button:hover { color:var(--cyan);padding-left:1rem; }
 
 /* ===== SECTION BASE ===== */
-section { position:relative;z-index:2; }
-.section-inner { max-width:1150px;margin:0 auto;padding:6rem 2rem; }
+section { position:relative;z-index:2;width:100%;max-width:100%;overflow-x:clip; }
+.section-inner { max-width:1150px;margin:0 auto;padding:6rem 2rem;width:100%; }
 .section-label { font-family:'Space Mono',monospace;font-size:0.68rem;color:var(--cyan);letter-spacing:5px;text-transform:uppercase;margin-bottom:0.6rem;display:flex;align-items:center;gap:0.8rem; }
 .section-label::before { content:'';width:30px;height:1px;background:var(--cyan); }
 .section-title { font-size:clamp(2.2rem,4.5vw,3.5rem);font-weight:800;margin-bottom:3.5rem;position:relative;display:inline-block;line-height:1.1; }
@@ -218,7 +237,7 @@ footer::before { content:'';position:absolute;top:0;left:10%;right:10%;height:1p
 .cursor-blink { animation:blink 0.8s step-end infinite; }
 .typed-text { font-family:'Space Mono',monospace;color:var(--cyan);font-size:1.1rem; }
 
-/* ===== SCROLL INDICATOR ===== */
+/* ===== SCROLL INDICATOR (removed from page, kept harmless) ===== */
 .scroll-indicator { position:absolute;bottom:2.5rem;left:50%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:10px;color:var(--muted);font-size:0.65rem;letter-spacing:3px;text-transform:uppercase;animation:fadeIn 1s 2s ease both; }
 .scroll-mouse { width:24px;height:38px;border:1.5px solid rgba(0,245,255,0.4);border-radius:12px;display:flex;justify-content:center;padding-top:6px; }
 .scroll-dot { width:4px;height:8px;background:var(--cyan);border-radius:2px;animation:scrollDot 2s ease infinite; }
@@ -229,7 +248,17 @@ footer::before { content:'';position:absolute;top:0;left:10%;right:10%;height:1p
   nav{padding:1rem 1.5rem;}
   .nav-links{display:none!important;}
   .nav-toggle{display:block;}
-  .section-inner{padding:4rem 1.5rem;}
+  .section-inner{padding:4rem 1.2rem;}
+  /* keep custom cursor effects off on touch devices so nothing feels broken */
+  #cursor,#cursor-ring{display:none;}
+}
+
+/* On touch devices, restore a normal pointer (custom cursor hidden) */
+@media (hover:none) and (pointer:coarse) {
+  body, .nav-logo, .nav-links button, .mobile-menu button, .nav-toggle,
+  .btn-primary, .btn-outline, .footer-nav button, .project-link,
+  .c-card, .form-input, .form-submit { cursor: auto !important; }
+  #cursor, #cursor-ring { display:none !important; }
 }
 
 /* ===== EXTRA BG ANIMATIONS (all pages) ===== */
