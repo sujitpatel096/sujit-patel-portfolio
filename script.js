@@ -115,7 +115,10 @@ function initParticles() {
 function initReveal() {
   const obs = new IntersectionObserver((entries) => {
     entries.forEach((e, i) => {
-      if (e.isIntersecting) setTimeout(() => e.target.classList.add('visible'), i * 100);
+      if (e.isIntersecting) {
+        setTimeout(() => e.target.classList.add('visible'), i * 100);
+        obs.unobserve(e.target);   // once revealed, stop watching → no vibrate
+      }
     });
   }, { threshold: 0.08 });
   document.querySelectorAll('.reveal,.reveal-left,.reveal-right,.reveal-scale').forEach(r => obs.observe(r));
