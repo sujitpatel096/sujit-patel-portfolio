@@ -504,3 +504,23 @@ footer::before { content:'';position:absolute;top:0;left:10%;right:10%;height:1p
   filter: brightness(1.3) drop-shadow(0 0 8px currentColor);
   transition: filter 0.3s;
 }
+/* ===== TIMELINE CARD MOBILE VIBRATE FIX ===== */
+.timeline-card,
+.timeline-list,
+.timeline-list li,
+.timeline-title,
+.highlights {
+  max-width: 100%;
+  overflow-wrap: break-word;
+  word-break: break-word;
+}
+.highlights { flex-wrap: wrap; max-width: 100%; }
+.highlight-pill { white-space: nowrap; flex-shrink: 0; }
+
+@media (max-width: 768px) {
+  .timeline-card,
+  .timeline-card:hover {
+    transform: none !important;
+    transition: border-color 0.3s, box-shadow 0.3s !important;
+  }
+}
