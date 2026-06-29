@@ -117,7 +117,6 @@ function initReveal() {
     entries.forEach((e, i) => {
       if (e.isIntersecting) {
         setTimeout(() => e.target.classList.add('visible'), i * 100);
-        obs.unobserve(e.target);   // once revealed, stop watching → no vibrate
       }
     });
   }, { threshold: 0.08 });
