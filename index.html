@@ -153,7 +153,7 @@
   .timeline-meta { font-family:'Space Mono',monospace;font-size:0.72rem;color:var(--muted);margin-bottom:0.6rem;display:flex;align-items:center;gap:0.8rem;flex-wrap:wrap; }
   .meta-dot { width:4px;height:4px;border-radius:50%;background:var(--cyan); }
   .timeline-card { background:var(--card);border:1px solid var(--border);border-radius:12px;padding:2rem;transition:border-color 0.3s,transform 0.3s,box-shadow 0.3s; }
-  .timeline-card:hover { border-color:rgba(0,245,255,0.25);transform:translateX(8px);box-shadow:0 20px 60px rgba(0,0,0,0.4); }
+  .timeline-card:hover { border-color:rgba(0,245,255,0.25);transform:translateY(-4px);box-shadow:0 20px 60px rgba(0,0,0,0.4); }
   .timeline-title { font-size:1.2rem;font-weight:700;margin-bottom:0.3rem;color:var(--text); }
   .timeline-org { color:var(--cyan);font-size:0.95rem;margin-bottom:1.2rem;display:flex;align-items:center;gap:0.5rem; }
   .timeline-list { list-style:none; }
@@ -220,6 +220,13 @@
     .bars-grid{grid-template-columns:1fr;}
     .hero-stats{gap:1.5rem 2rem;}
     .skills-grid,.projects-grid,.edu-grid,.certs-grid{grid-template-columns:1fr;}
+    /* MOBILE VIBRATE FIX: kill all transform on timeline so long cards never jitter */
+    .timeline-item.reveal,
+    .timeline-item.reveal.visible,
+    .timeline-card,
+    .timeline-card:hover { transform:none !important; }
+    .timeline-item.reveal { opacity:0; transition:opacity 0.6s ease; }
+    .timeline-item.reveal.visible { opacity:1; }
   }
 </style>
 </head>
@@ -453,7 +460,7 @@
         <div class="timeline-meta"><span>MAY 2026</span><div class="meta-dot"></div><span>PRESENT</span><div class="meta-dot"></div><span>Baner, Pune, Maharashtra</span></div>
         <div class="timeline-card">
           <h3 class="timeline-title">AI &amp; Automation Engineer Intern</h3>
-          <p class="timeline-org">🏢 Vyom Capital · Chintan Parikh</p>
+          <p class="timeline-org">🏢 Vyom Capital </p>
           <ul class="timeline-list">
             <li>Architected end-to-end automated Python pipelines to fetch, parse, and process NSE/BSE SME exchange data — announcements, circulars, and IPO listings — reducing manual data collection effort significantly.</li>
             <li>Engineered robust data extraction workflows from exchange APIs and PDF documents (including scanned files) into clean, structured Excel reports.</li>
