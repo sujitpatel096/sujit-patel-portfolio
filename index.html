@@ -141,6 +141,22 @@
   .project-link:hover { gap:1rem;color:var(--violet2); }
   .project-link::after { content:'→'; }
   .featured-badge { position:absolute;top:1.5rem;left:1.8rem;font-size:0.6rem;font-family:'Space Mono',monospace;letter-spacing:2px;text-transform:uppercase;padding:0.25rem 0.7rem;border-radius:50px;background:linear-gradient(135deg,rgba(0,245,255,0.15),rgba(139,47,255,0.15));border:1px solid rgba(0,245,255,0.3);color:var(--cyan); }
+  /* Live/soon badges + secondary (code) link + multi-link row for real-world projects */
+  .live-badge { position:absolute;top:1.5rem;left:1.8rem;font-size:0.6rem;font-family:'Space Mono',monospace;letter-spacing:2px;text-transform:uppercase;padding:0.25rem 0.7rem;border-radius:50px;background:rgba(0,255,170,0.1);border:1px solid rgba(0,255,170,0.3);color:var(--green);display:inline-flex;align-items:center;gap:0.4rem; }
+  .live-badge::before { content:'';width:6px;height:6px;border-radius:50%;background:var(--green);box-shadow:0 0 8px var(--green);animation:pulse 2s ease infinite; }
+  .soon-badge { position:absolute;top:1.5rem;left:1.8rem;font-size:0.6rem;font-family:'Space Mono',monospace;letter-spacing:2px;text-transform:uppercase;padding:0.25rem 0.7rem;border-radius:50px;background:rgba(107,125,179,0.1);border:1px solid rgba(107,125,179,0.3);color:var(--muted); }
+  .project-card.upcoming { opacity:0.75; }
+  .project-card.upcoming:hover { transform:translateY(-4px); box-shadow:none; }
+  .project-links-row { display:flex;align-items:center;gap:1.6rem;flex-wrap:wrap; }
+  .project-link-code { display:inline-flex;align-items:center;gap:0.5rem;color:var(--muted);font-size:0.78rem;font-family:'Space Mono',monospace;text-decoration:none;cursor:none;transition:gap 0.3s,color 0.2s; }
+  .project-link-code:hover { gap:1rem;color:var(--text); }
+  .project-link-code::after { content:'↗'; }
+  /* Personal philosophy quote block */
+  .quote-block { text-align:center;max-width:780px;margin:5rem auto 0;padding:3rem 2.2rem 2.6rem;position:relative;background:rgba(8,13,28,0.5);border:1px solid var(--border);border-radius:16px;transition:border-color 0.3s,transform 0.3s; }
+  .quote-block:hover { border-color:rgba(0,245,255,0.3);transform:translateY(-4px); }
+  .quote-mark { font-family:'Clash Display',sans-serif;font-size:4.5rem;line-height:1;color:var(--cyan);opacity:0.3;display:block;margin-bottom:-1.2rem; }
+  .quote-text { font-size:clamp(1.05rem,2.1vw,1.4rem);font-weight:600;line-height:1.75;color:var(--text);font-style:italic; }
+  .quote-author { margin-top:1.5rem;font-family:'Space Mono',monospace;font-size:0.8rem;letter-spacing:2px;text-transform:uppercase;background:linear-gradient(135deg,var(--cyan),var(--violet2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text; }
 
   /* EXPERIENCE */
   #experience { background:var(--bg);position:relative;z-index:1; }
@@ -314,7 +330,7 @@
       <button onclick="ss('contact')" class="btn-outline">Get In Touch</button>
     </div>
     <div class="hero-stats">
-      <div class="hero-stat"><div class="num" data-target="5" data-suffix="+">0+</div><div class="lbl">Projects Built</div></div>
+      <div class="hero-stat"><div class="num" data-target="7" data-suffix="+">0+</div><div class="lbl">Projects Built</div></div>
       <div class="hero-stat"><div class="num" data-target="2" data-suffix="yr">0yr</div><div class="lbl">Experience</div></div>
       <div class="hero-stat"><div class="num" data-target="5" data-suffix="">0</div><div class="lbl">Certifications</div></div>
       <div class="hero-stat"><div class="num" data-target="8" data-suffix="+">0+</div><div class="lbl">Tech Skills</div></div>
@@ -362,6 +378,11 @@
           <button onclick="ss('skills')" class="btn-outline">View Skills</button>
         </div>
       </div>
+    </div>
+    <div class="quote-block reveal-scale">
+      <span class="quote-mark">"</span>
+      <p class="quote-text">Build a strong fundamental — and with AI by your side, you can create anything, even without knowing a single line of code.</p>
+      <p class="quote-author">— Sujit Patel</p>
     </div>
     <div style="margin-top:5rem;">
       <p class="section-label reveal">// Personality</p>
@@ -442,6 +463,12 @@
       <div class="project-card reveal" data-glow="pink"><div class="project-num">03</div><span class="project-emoji">🎓</span><h3>Student Management System</h3><p>Python-based system to manage student records with add, update, delete, and search operations. Applied OOP principles and file handling for persistent storage — clean modular design.</p><div class="project-tags"><span class="tag tag-cyan">Python</span><span class="tag tag-violet">OOPs</span><span class="tag tag-orange">File Handling</span></div></div>
       <div class="project-card reveal" data-glow="gold"><div class="project-num">04</div><span class="project-emoji">🎬</span><h3>MovieMind AI — Bot</h3><p>Smart AI-powered movie recommendation bot. Suggests personalized films based on your mood and taste using ML algorithms. Currently running locally — live deployment coming soon!</p><div class="project-tags"><span class="tag tag-cyan">Python</span><span class="tag tag-violet">Telegram API</span><span class="tag tag-orange">AI/ML</span><span class="tag tag-green">Bot</span></div><a href="https://t.me/moviemind_ai_bot" class="project-link">@moviemind_ai_bot</a></div>
       <div class="project-card reveal" data-glow="green"><div class="project-num">05</div><span class="project-emoji">🌐</span><h3>Interactive Resume Website</h3><p>A visually stunning animated resume website with particle network, glowing cursor trails, 3D card effects, and smooth animations. Built with pure HTML, CSS & JS.</p><div class="project-tags"><span class="tag tag-cyan">HTML/CSS</span><span class="tag tag-violet">JavaScript</span><span class="tag tag-orange">Animations</span><span class="tag tag-green">UI/UX</span></div></div>
+
+      <div class="project-card reveal" data-glow="cyan"><div class="project-num">06</div><span class="live-badge">Live</span><span class="project-emoji" style="margin-top:1.6rem;">🧵</span><h3>Krupalu Creation — Business Website</h3><p>Professional business website for Krupalu Creation digital fabric printing, featuring an interactive product gallery, a "How We Work" process walkthrough, and a customer reviews carousel. Deployed on GitHub Pages.</p><div class="project-tags"><span class="tag tag-cyan">HTML/CSS</span><span class="tag tag-violet">JavaScript</span><span class="tag tag-orange">GitHub Pages</span><span class="tag tag-green">UI/UX</span></div><div class="project-links-row"><a href="https://tinyurl.com/krupalu-creation" target="_blank" rel="noopener" class="project-link">Live Demo</a><a href="https://github.com/sujitpatel096/krupalu-creation" target="_blank" rel="noopener" class="project-link-code">Code</a></div></div>
+
+      <div class="project-card reveal" data-glow="violet"><div class="project-num">07</div><span class="project-emoji">📋</span><h3>Krupalu Creation — Business Dashboard</h3><p>Full-fledged business management dashboard built with Flask & SQLite — order, delivery & payment tracking, PDF challan generation, Excel backup, and Chart.js analytics, with a collapsible sidebar and draggable widgets.</p><div class="project-tags"><span class="tag tag-cyan">Python</span><span class="tag tag-violet">Flask</span><span class="tag tag-orange">SQLite</span><span class="tag tag-green">Chart.js</span></div><div class="project-links-row"><a href="https://github.com/sujitpatel096/krupalu-dashboard" target="_blank" rel="noopener" class="project-link-code">Code</a></div></div>
+
+      <div class="project-card reveal upcoming" data-glow="pink"><div class="project-num">08</div><span class="soon-badge">Coming Soon</span><span class="project-emoji" style="margin-top:1.6rem;">🌸</span><h3>Perfume Prediction Dashboard</h3><p>An upcoming ML-powered dashboard to predict and recommend fragrance notes/profiles from product data — currently in active development.</p><div class="project-tags"><span class="tag tag-cyan">Python</span><span class="tag tag-violet">Machine Learning</span><span class="tag tag-orange">Dashboard</span></div></div>
     </div>
     <div style="text-align:center;margin-top:4rem;" class="reveal">
       <p style="color:var(--muted);font-size:0.9rem;margin-bottom:1.5rem;">More projects coming soon — always building something new 🚀</p>
