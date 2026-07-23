@@ -193,25 +193,29 @@ document.addEventListener('DOMContentLoaded', () => {
   initPageLoad();
 });
 
-// ===== THEME TOGGLE (dark/light) =====
-function applyTheme(theme) {
-  const btn = document.getElementById('themeToggleBtn');
-  if (theme === 'light') {
-    document.body.classList.add('light-mode');
-    if (btn) btn.textContent = '☀️';
-  } else {
-    document.body.classList.remove('light-mode');
-    if (btn) btn.textContent = '🌙';
+// ===== CERTIFICATE MODAL =====
+function openCert(imgSrc, name, issuer) {
+  const img = document.getElementById('certModalImg');
+  const fallback = document.getElementById('certModalFallback');
+
+  img.style.display = 'block';
+  fallback.style.display = 'none';
+  img.src = imgSrc;
+
+  img.onerror = function () {
+    img.style.display = 'none';
+    fallback.style.display = 'flex';
+    fallback.querySelector('.cert-fallback-name').textContent = name;
+  };
+
+  document.getElementById('certModalName').textContent = name;
+  document.getElementById('certModalIssuer').textContent = issuer;
+  document.getElementById('certModal').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+function closeCert(e) {
+  if (e.target.id === 'certModal' || e.target.classList.contains('cert-modal-close')) {
+    document.getElementById('certModal').classList.remove('open');
+    document.body.style.overflow = '';
   }
 }
-function toggleTheme() {
-  const isLight = document.body.classList.contains('light-mode');
-  const next = isLight ? 'dark' : 'light';
-  applyTheme(next);
-  try { localStorage.setItem('sp-theme', next); } catch (e) {}
-}
-(function initTheme() {
-  let saved = 'dark';
-  try { saved = localStorage.getItem('sp-theme') || 'dark'; } catch (e) {}
-  applyTheme(saved);
-})();

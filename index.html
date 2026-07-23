@@ -471,7 +471,7 @@
       <div class="project-card reveal upcoming" data-glow="pink"><div class="project-num">08</div><span class="soon-badge">Coming Soon</span><span class="project-emoji" style="margin-top:1.6rem;">🌸</span><h3>Perfume Prediction Dashboard</h3><p>An upcoming ML-powered dashboard to predict and recommend fragrance notes/profiles from product data — currently in active development.</p><div class="project-tags"><span class="tag tag-cyan">Python</span><span class="tag tag-violet">Machine Learning</span><span class="tag tag-orange">Dashboard</span></div></div>
     </div>
     <div style="text-align:center;margin-top:4rem;" class="reveal">
-      <p style="color:var(--muted);font-size:0.9rem;margin-bottom:1.5rem;">More projects coming soon — always building something new 🚀</p>
+      <p style="color:var(--muted);font-size:0.9rem;margin-bottom:1.5rem;">always building something new 🚀</p>
       <button onclick="ss('contact')" class="btn-primary"><span>Collaborate With Me</span></button>
     </div>
   </div>
@@ -531,11 +531,11 @@
     <p class="section-label reveal">// Credentials</p>
     <h3 class="section-title reveal">Certifications</h3>
     <div class="certs-grid">
-      <div class="cert-card reveal"><div class="cert-icon">🧠</div><div><p class="cert-name">Generative AI Mastermind</p><p class="cert-issuer">Outskill · Prompt Engineering, LLM Basics, AI Apps</p></div><span class="cert-check">✓</span></div>
-      <div class="cert-card reveal"><div class="cert-icon">🐍</div><div><p class="cert-name">Python for Data Science, AI & Development</p><p class="cert-issuer">IBM</p></div><span class="cert-check">✓</span></div>
-      <div class="cert-card reveal"><div class="cert-icon">📊</div><div><p class="cert-name">Python Project for Data Science</p><p class="cert-issuer">IBM</p></div><span class="cert-check">✓</span></div>
-      <div class="cert-card reveal"><div class="cert-icon">📈</div><div><p class="cert-name">Data Analysis with Python</p><p class="cert-issuer">IBM</p></div><span class="cert-check">✓</span></div>
-      <div class="cert-card reveal"><div class="cert-icon">🤖</div><div><p class="cert-name">Data Science With AI-ML</p><p class="cert-issuer">Seed Infotech, Pune</p></div><span class="cert-check">✓</span></div>
+      <div class="cert-card reveal" onclick="openCert('certificates/gen-ai-mastermind.jpg','Generative AI Mastermind','Outskill · Prompt Engineering, LLM Basics, AI Apps')"><div class="cert-icon">🧠</div><div><p class="cert-name">Generative AI Mastermind</p><p class="cert-issuer">Outskill · Prompt Engineering, LLM Basics, AI Apps</p></div><span class="cert-check">✓</span></div>
+      <div class="cert-card reveal" onclick="openCert('certificates/python-ds-ibm.jpg','Python for Data Science, AI & Development','IBM')"><div class="cert-icon">🐍</div><div><p class="cert-name">Python for Data Science, AI & Development</p><p class="cert-issuer">IBM</p></div><span class="cert-check">✓</span></div>
+      <div class="cert-card reveal" onclick="openCert('certificates/python-project-ibm.jpg','Python Project for Data Science','IBM')"><div class="cert-icon">📊</div><div><p class="cert-name">Python Project for Data Science</p><p class="cert-issuer">IBM</p></div><span class="cert-check">✓</span></div>
+      <div class="cert-card reveal" onclick="openCert('certificates/data-analysis-ibm.jpg','Data Analysis with Python','IBM')"><div class="cert-icon">📈</div><div><p class="cert-name">Data Analysis with Python</p><p class="cert-issuer">IBM</p></div><span class="cert-check">✓</span></div>
+      <div class="cert-card reveal" onclick="openCert('certificates/data-science-aiml.jpg','Data Science With AI-ML','Seed Infotech, Pune')"><div class="cert-icon">🤖</div><div><p class="cert-name">Data Science With AI-ML</p><p class="cert-issuer">Seed Infotech, Pune</p></div><span class="cert-check">✓</span></div>
     </div>
   </div>
 </section>
@@ -678,6 +678,20 @@ function sendEmail(){
   });
 })();
 </script>
+
+<div class="cert-modal-overlay" id="certModal" onclick="closeCert(event)">
+  <div class="cert-modal-box">
+    <button class="cert-modal-close" onclick="closeCert(event)" aria-label="Close">✕</button>
+    <img id="certModalImg" src="" alt="Certificate">
+    <div id="certModalFallback" class="cert-fallback">
+      <span class="cert-fallback-icon">📄</span>
+      <p class="cert-fallback-name"></p>
+      <p class="cert-fallback-text">Certificate image </p>
+    </div>
+    <p class="cert-modal-name" id="certModalName"></p>
+    <p class="cert-modal-issuer" id="certModalIssuer"></p>
+  </div>
+</div>
 
 </body>
 </html>
