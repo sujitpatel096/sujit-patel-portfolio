@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Projects — Sujit Patel</title>
+<link rel="stylesheet" href="style.css">
+<style>
+  .projects-grid { display:grid;grid-template-columns:repeat(auto-fit,minmax(340px,1fr));gap:2rem; }
+  .project-card {
+    background:var(--card);border:1px solid var(--border);border-radius:14px;padding:2.2rem;
+    position:relative;overflow:hidden;
+    transition:transform 0.4s cubic-bezier(0.16,1,0.3,1),box-shadow 0.4s,border-color 0.3s;
+  }
+  .project-card::before { content:'';position:absolute;top:0;left:0;right:0;height:3px;background:var(--grad);transform:scaleX(0);transform-origin:left;transition:transform 0.5s; }
+  .project-card:hover::before { transform:scaleX(1); }
+  .project-card:hover { transform:translateY(-12px) rotateX(2deg) rotateY(-1deg);box-shadow:0 40px 100px rgba(0,0,0,0.6),0 0 40px rgba(0,245,255,0.08);border-color:rgba(0,245,255,0.25); }
+
+  /* Glow variants */
+  .project-card[data-glow="cyan"] { --grad:linear-gradient(90deg,var(--cyan),var(--violet2)); }
+  .project-card[data-glow="violet"] { --grad:linear-gradient(90deg,var(--violet),var(--pink)); }
+  .project-card[data-glow="pink"] { --grad:linear-gradient(90deg,var(--pink),var(--orange)); }
+  .project-card[data-glow="green"] { --grad:linear-gradient(90deg,var(--green),var(--cyan)); }
+  .project-card[data-glow="gold"] { --grad:linear-gradient(90deg,var(--gold),var(--orange)); }
+
+  .project-num { position:absolute;top:1.5rem;right:1.8rem;font-family:'Space Mono',monospace;font-size:4rem;font-weight:700;color:rgba(255,255,255,0.03);line-height:1;pointer-events:none; }
+  .project-emoji { font-size:2.5rem;margin-bottom:1.2rem;display:block;filter:drop-shadow(0 0 8px rgba(0,245,255,0.4));transition:transform 0.3s; }
+  .project-card:hover .project-emoji { transform:scale(1.2) rotate(-5deg); }
+  .project-card h3 { font-size:1.15rem;font-weight:700;margin-bottom:0.8rem;color:var(--text); }
+  .project-card p { color:#6b7db3;font-size:0.88rem;line-height:1.75;margin-bottom:1.5rem; }
+  .project-tags { display:flex;flex-wrap:wrap;gap:0.4rem;margin-bottom:1.5rem; }
+  .project-link { display:inline-flex;align-items:center;gap:0.5rem;color:var(--cyan);font-size:0.78rem;font-family:'Space Mono',monospace;text-decoration:none;cursor:none;transition:gap 0.3s,color 0.2s; }
+  .project-link:hover { gap:1rem;color:var(--violet2); }
+  .project-link::after { content:'→'; }
+
+  /* Featured badge */
+  .featured-badge { position:absolute;top:1.5rem;left:1.8rem;font-size:0.6rem;font-family:'Space Mono',monospace;letter-spacing:2px;text-transform:uppercase;padding:0.25rem 0.7rem;border-radius:50px;background:linear-gradient(135deg,rgba(0,245,255,0.15),rgba(139,47,255,0.15));border:1px solid rgba(0,245,255,0.3);color:var(--cyan); }
+</style>
+</head>
+<body>
+<div id="cursor"></div><div id="cursor-ring"></div>
+<canvas id="particles"></canvas>
+<!-- BACKGROUND ANIMATIONS -->
+<div class="bg-ball ball1"></div><div class="bg-ball ball2"></div><div class="bg-ball ball3"></div>
+<div class="bg-ball ball4"></div><div class="bg-ball ball5"></div><div class="bg-ball ball6"></div>
+<div class="bg-ball ball7"></div><div class="bg-ball ball8"></div><div class="bg-ball ball9"></div><div class="bg-ball ball10"></div>
+<div class="bg-icon bgi1">🐍</div><div class="bg-icon bgi2">🤖</div><div class="bg-icon bgi3">📊</div>
+<div class="bg-icon bgi4">🧠</div><div class="bg-icon bgi5">⚡</div><div class="bg-icon bgi6">🔬</div>
+<div class="bg-icon bgi7">📈</div><div class="bg-icon bgi8">💡</div>
+<div class="bg-star star1"></div><div class="bg-star star2"></div><div class="bg-star star3"></div>
+<div class="bg-star star4"></div><div class="bg-star star5"></div><div class="bg-star star6"></div>
+<div class="bg-star star7"></div><div class="bg-star star8"></div>
+<div class="bg-pie pie1"></div><div class="bg-pie pie2"></div><div class="bg-pie pie3"></div>
+<div class="bg-bars bars1"><span></span><span></span><span></span><span></span></div>
+<div class="bg-bars bars2"><span></span><span></span><span></span><span></span></div>
+<div class="bg-line line1"></div><div class="bg-line line2"></div>
+<div class="bg-line line3"></div><div class="bg-line line4"></div>
+<div class="bg-grid"></div>
+<div class="bg-shapes">
+  <div class="shape shape-hex shape-hex1"></div>
+  <div class="shape shape-hex shape-hex2"></div>
+  <div class="shape shape-hex shape-hex3"></div>
+  <div class="shape shape-tri shape-tri1"></div>
+  <div class="shape shape-tri shape-tri2"></div>
+  <div class="shape shape-ring shape-ring1"></div>
+  <div class="shape shape-ring shape-ring2"></div>
+  <div class="shape shape-diamond shape-diamond1"></div>
+  <div class="shape shape-diamond shape-diamond2"></div>
+  <div class="shape shape-dots"></div>
+  <div class="shape shape-dots2"></div>
+</div>
+<div class="aurora aurora1"></div>
+<div class="aurora aurora2"></div>
+<div class="aurora aurora3"></div>
+<div class="corner-glow corner-tl"></div>
+<div class="corner-glow corner-br"></div>
+<div class="corner-glow corner-tr"></div>
+<div class="orb orb1"></div><div class="orb orb2"></div><div class="orb orb3"></div>
+<nav>
+  <div class="nav-logo" onclick="goTo('hero')">&lt;SP/&gt;</div>
+  <div class="nav-links">
+    <button onclick="goTo('about')">About</button><button onclick="goTo('skills')">Skills</button>
+    <button onclick="goTo('projects')">Projects</button><button onclick="goTo('experience')">Experience</button>
+    <button onclick="goTo('education')">Education</button><button onclick="goTo('contact')">Contact</button>
+  </div>
+  <button class="nav-toggle" id="menuBtn" onclick="toggleMenu(event)">☰</button>
+</nav>
+<div class="mobile-menu" id="mobileMenu">
+  <button onclick="mobileGo('about')">About</button><button onclick="mobileGo('skills')">Skills</button>
+  <button onclick="mobileGo('projects')">Projects</button><button onclick="mobileGo('experience')">Experience</button>
+  <button onclick="mobileGo('education')">Education</button><button onclick="mobileGo('contact')">Contact</button>
+</div>
+
+<section style="position:relative;z-index:2;">
+  <div class="section-inner">
+    <div style="text-align:center;padding-top:4rem;">
+      <p class="section-label reveal">// What I've Built</p>
+      <h1 class="section-title reveal">My <span class="highlight">Projects</span></h1>
+    </div>
+
+    <div class="projects-grid">
+
+      <div class="project-card reveal" data-glow="cyan">
+        <div class="project-num">01</div>
+        <span class="project-emoji">📊</span>
+        <h3>Sales Analytics & Reporting System</h3>
+        <p>Built with Python & SQL to analyze structured sales data from relational databases. Wrote complex queries using JOIN, GROUP BY, and HAVING for monthly, yearly, and region-wise reporting. Automated charts and insights with Pandas + Matplotlib.</p>
+        <div class="project-tags"><span class="tag tag-cyan">Python</span><span class="tag tag-violet">SQL</span><span class="tag tag-orange">Pandas</span><span class="tag tag-green">Matplotlib</span></div>
+      </div>
+
+      <div class="project-card reveal" data-glow="violet">
+        <div class="project-num">02</div>
+        <span class="project-emoji">🏨</span>
+        <h3>Hotel Management System</h3>
+        <p>Menu-driven Python system with MySQL backend to automate guest check-in/out, room booking, upgrades, cancellations, and billing — with persistent data tracking and clean OOP architecture.</p>
+        <div class="project-tags"><span class="tag tag-cyan">Python</span><span class="tag tag-violet">MySQL</span><span class="tag tag-orange">OOPs</span><span class="tag tag-green">CRUD</span></div>
+      </div>
+
+      <div class="project-card reveal" data-glow="pink">
+        <div class="project-num">03</div>
+        <span class="project-emoji">🎓</span>
+        <h3>Student Management System</h3>
+        <p>Python-based system to manage student records with add, update, delete, and search operations. Applied OOP principles and file handling for persistent storage — clean modular design.</p>
+        <div class="project-tags"><span class="tag tag-cyan">Python</span><span class="tag tag-violet">OOPs</span><span class="tag tag-orange">File Handling</span></div>
+      </div>
+
+      <div class="project-card reveal" data-glow="gold">
+        <div class="project-num">04</div>
+        <span class="project-emoji">🎬</span>
+        <h3>MovieMind AI — Telegram Bot</h3>
+        <p>Smart AI-powered movie recommendation Telegram bot. Suggests personalized films based on your mood and taste using ML algorithms. Currently running locally — live deployment with API integration coming soon!</p>
+        <div class="project-tags"><span class="tag tag-cyan">Python</span><span class="tag tag-violet">Telegram API</span><span class="tag tag-orange">AI/ML</span><span class="tag tag-green">Bot</span></div>
+        <a href="https://t.me/moviemind_ai_bot" class="project-link">@moviemind_ai_bot</a>
+      </div>
+
+      <div class="project-card reveal" data-glow="green">
+        <div class="project-num">05</div>
+        <span class="project-emoji">🌐</span>
+        <h3>Interactive Resume Website</h3>
+        <p>A visually stunning, animated personal resume website with particle network background, glowing cursor trails, 3D card effects, and smooth page transitions. Built with pure HTML, CSS & JS.</p>
+        <div class="project-tags"><span class="tag tag-cyan">HTML/CSS</span><span class="tag tag-violet">JavaScript</span><span class="tag tag-orange">Animations</span><span class="tag tag-green">UI/UX</span></div>
+      </div>
+
+    </div>
+
+    <div style="text-align:center;margin-top:4rem;" class="reveal">
+      <p style="color:var(--muted);font-size:0.9rem;margin-bottom:1.5rem;">More projects coming soon — always building something new 🚀</p>
+      <button onclick="goTo('contact')" class="btn-primary"><span>Collaborate With Me</span></button>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-nav">
+      <button onclick="goTo('about')">About</button><button onclick="goTo('skills')">Skills</button>
+      <button onclick="goTo('projects')">Projects</button><button onclick="goTo('experience')">Experience</button>
+      <button onclick="goTo('education')">Education</button><button onclick="goTo('contact')">Contact</button>
+    </div>
+    <p>Built with ❤️ by <span>Sujit Patel</span> · Pune, India · 2025</p>
+  </div>
+</footer>
+<script src="script.js"></script>
+
+<script>
+// ===== TITLE BACKGROUND SPARKLES =====
+(function() {
+  const sparkColors = ['#00f5ff','#b66dff','#ff2d78','#00ffaa','#ffd700','#ff6b35'];
+
+  function addTitleSparks(el) {
+    const count = 6;
+    for (let i = 0; i < count; i++) {
+      const spark = document.createElement('div');
+      spark.className = 'title-spark';
+      const size = Math.random() * 6 + 3;
+      const color = sparkColors[Math.floor(Math.random() * sparkColors.length)];
+      spark.style.cssText = `
+        width:${size}px; height:${size}px;
+        background:${color};
+        left:${Math.random() * 110 - 5}%;
+        top:${Math.random() * 120 - 10}%;
+        animation-duration:${Math.random() * 3 + 2}s;
+        animation-delay:-${Math.random() * 3}s;
+        box-shadow: 0 0 ${size * 2}px ${color};
+      `;
+      el.style.position = 'relative';
+      el.appendChild(spark);
+    }
+  }
+
+  window.addEventListener('load', function() {
+    // Add to all page titles and section titles
+    document.querySelectorAll('.page-title, .section-title, .hero-name').forEach(el => {
+      addTitleSparks(el);
+    });
+  });
+})();
+</script>
+
+</body>
+</html>
