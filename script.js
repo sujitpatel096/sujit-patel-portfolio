@@ -219,3 +219,35 @@ function closeCert(e) {
     document.body.style.overflow = '';
   }
 }
+
+// ===== VIDEO MODAL (project demo videos) =====
+function openVideo(src, title) {
+  const player = document.getElementById('videoModalPlayer');
+  player.src = src;
+  document.getElementById('videoModalTitle').textContent = title || '';
+  document.getElementById('videoModal').classList.add('open');
+  document.body.style.overflow = 'hidden';
+  const p = player.play();
+  if (p && p.catch) p.catch(() => {}); // autoplay may be blocked; user can press play
+}
+function closeVideo(e) {
+  if (e.target.id === 'videoModal' || e.target.classList.contains('video-modal-close')) {
+    const player = document.getElementById('videoModalPlayer');
+    player.pause();
+    player.removeAttribute('src');
+    player.load();
+    document.getElementById('videoModal').classList.remove('open');
+    document.body.style.overflow = '';
+  }
+}
+document.addEventListener('keydown', function (e) {
+  if (e.key === 'Escape') {
+    const vm = document.getElementById('videoModal');
+    if (vm && vm.classList.contains('open')) closeVideo({ target: vm });
+    const cm = document.getElementById('certModal');
+    if (cm && cm.classList.contains('open')) closeCert({ target: cm });
+  }
+  if ((e.key === 'Enter' || e.key === ' ') && e.target.classList && e.target.classList.contains('video-thumb')) {
+    e.preventDefault(); e.target.click();
+  }
+});
